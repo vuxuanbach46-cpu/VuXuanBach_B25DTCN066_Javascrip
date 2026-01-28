@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Bài tập tổng hợp</h1>
+  
+  <script>
+    let name = prompt("Tên sách").trim().toLocaleUpperCase();
+    let nameTacGia = prompt("Tên tác giả").toLocaleUpperCase();
+    let nam = prompt("Năm xuất bản");
+    let tien = prompt("Số tiền 1 cuốn");
+    let soLuong = prompt("Só lượng nhập kho");
+
+    console.log (`--- PHIẾU NHẬP KHO ---
+    Mã sách : ${nameTacGia.slice(0 , 3)}${nam} ${Math.floor(Math.random()* 1000) +1}
+    Tên sách : ${name}
+    Tác giả : ${nameTacGia}
+    Năm xuất bản : ${nam}
+    Tuổi sách : ${2026 - nam}
+    Tổng giá trị : ${tien * soLuong}
+    Ngăn kệ gợi ý : ${Math.floor(Math.random() * 10) + 1}`);
+
+  </script>
+</body>
+</html>
