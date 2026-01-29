@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let bookName = prompt("Tên sách");
+    let userName = prompt("Tên người mượn");
+    let status ;
+    do{
+    status = prompt("Tình trạng sách (có sẵn, đã mượn , không có sẵn)");
+    if (status !== "có sẵn" && status !== "đã mượn" && status !== "không có sẵn"){
+      console.log("Vui lòng nhập lại đúng định dạng");
+    }
+    }while(status !== "có sẵn" && status !== "đã mượn" && status !== "không có sẵn");
+
+
+    let date = +prompt("Số ngày mượn");
+    let card ;
+    do {
+    card = prompt("Có thẻ sinh viên không . Điền có hoặc không");
+    if (card !== "có" && card !== "không"){
+      console.log("Vui lòng nhập đúng định dạng");
+    }
+    }while(card !== "có" && card !== "không");
+
+
+    if (status === "có sẵn" && card === "có"){
+      console.log("Chúc mừng, bạn có thể mượn sách này");
+    }else if (status === "đã mượn" && date <= 30){
+      if (card === "có"){
+        console.log("Sách đang được mượn, vui lòng đợi đến khi trả lại"); 
+      }else {
+        console.log("Bạn không thể mượn sách nếu không có thẻ thư viện");
+      }
+    }else if (status === "không có sẵn") {
+      console.log("Sách này hiện tại không có sẵn trong thư viện, bạn có thể đăng ký mượn sau");
+    }else{
+      console.log("Thông tin không hợp lệ vui lòng nhập lại");
+    }
+  </script>
+</body>
+</html>

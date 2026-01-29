@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    let name = prompt("Tên người dùng").toLocaleUpperCase();
+    let vaiTro = prompt ("Vai trò (Nhập một trong các từ: admin, student, guest");
+    let balance = +prompt ("Số dư tài khoản thẻ (Ví dụ: 50000 hoặc để rỗng/0 nếu hết tiền ");
+    let trangThai = prompt ("Trạng thái thẻ thư viện Nhập true nếu đang hoạt động, hoặc để rỗng/nhập khác để coi như bị khóa");
+    let date = +prompt ("Số ngày quá hạn trả sách (Ví dụ: 0 là đúng hạn, 5 là quá hạn 5 ngày)")
+
+    let roleUpdate = ""
+    switch (vaiTro){
+      case  "admin":
+        roleUpdate = ("Chào Admin, bạn có toàn quyền hệ thống");
+        break;
+      case "student" :
+        roleUpdate = ("Chào sinh viên, bạn có thể mượn sách");
+        break ;
+      case "guest": 
+        roleUpdate = ("Chào khách, bạn chỉ có thể đọc tại chỗ");
+        break ;
+      default :
+        roleUpdate = ("Lỗi: Vai trò không hợp lệ!");
+        break ;
+    }
+
+    let yeuCau="";
+    if (!name){
+      yeuCau = "Bạn không đủ điều kiện mượn . Tên người dùng không được để trống";
+    }else if ( (vaiTro === "student") || (vaiTro === "admin") && balance > 0 && trangThai === "true"){
+      yeuCau = ("ĐƯỢC PHÉP MƯỢN SÁCH");
+    }else {
+      if ( (vaiTro !== "student") || (vaiTro !== "admin") ){
+        yeuCau = "Yêu cầu bị từ chối . Bạn không phải student hay admin"
+      }
+      if (balance < 0) {
+        yeuCau = "Số dư tài khoản bạn không đủ";
+      }
+      if (trangThai !== "true") {
+        yeuCau = "Trạng thái trài khoản bạn hiện không hoạt động";
+      }
+    }
+
+    let fineUpdate = 0 ;
+    let ghiChuPhat = "";
+
+    if (date <= 0){
+      ghiChuPhat=("Cảm ơn bạn đã trả đúng hạn");
+    }else if (date <= 5) {
+      fineUpdate = 5000 * date ;
+    }else if ( date <= 10){
+      fineUpdate = 10000 * date ;
+    }else{
+      fineUpdate = 200000;
+      ghiChuPhat=("TÀI KHOẢN ĐÃ BỊ KHÓA");
+    }
+
+
+    console.log(`-- HỆ THỐNG MƯỢN TRẢ --
+    Người dùng : ${name}
+    Quyền hạn : ${roleUpdate}
+    Kết quả mượn : ${yeuCau} 
+    Tình trạng trả sách: Quá hạn ${date} ngày . ${ghiChuPhat} 
+    Tiền phạt : ${fineUpdate} VNĐ`);
+    
+    
+  </script>
+</body>
+</html>

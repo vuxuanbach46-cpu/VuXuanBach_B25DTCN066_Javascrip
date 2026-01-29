@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let bookName = prompt("Tên sách");
+    let theLoaiSach = prompt("Thể loại sách");
+    let tinhTrangSach = prompt("Tình trạng sách");
+
+    if (theLoaiSach === ("Khoa học") || (theLoaiSach === ("Lịch sử"))){
+      if (tinhTrangSach === ("có")){
+        console.log ("Sách này có sẵn trong thư viện");
+      }else{
+        console.log ("Sách đã được mượn");
+      }
+    }else if (theLoaiSach === "Văn học" || theLoaiSach === "Truyện") {
+      console.log("Sách này có thể đọc giải trí.");
+    }else {
+      console.log ("Sách không có sẵn trong thư viện");
+    }
+  </script>
+</body>
+</html>
