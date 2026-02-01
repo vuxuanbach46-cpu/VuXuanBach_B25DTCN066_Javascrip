@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <script>
+    let tongSo = 0;
+    let khieuNaiNghiemTrong = 0;
+    let khieuNaiTrungBinh = 0;
+    let khieuNaiNhe = 0;
+    let deXuat = 0;
+    let tichCuc = 0;
+    
+    while (true) {
+      let hoi = prompt("Có khiếu nại/phản hồi mới từ bạn đọc không? (có/không)");
+      
+      if (hoi === null) break;
+      
+      hoi = hoi.trim().toLowerCase();
+      
+      if (hoi === "không") {
+        break;
+      }
+      
+      if (hoi !== "có") {
+        alert("Vui lòng nhập 'có' hoặc 'không'");
+        continue;
+      }
+      
+      let ten = "";
+      
+      while (ten.trim() === "") {
+        ten = prompt("Nhập tên bạn đọc:");
+        if (ten === null) break;
+      }
+      
+      if (ten === null) break;
+      
+      let maThe = prompt("Nhập mã thẻ bạn đọc (có thể để trống):");
+      
+      let loai = 0;
+      
+      while (![1, 2, 3].includes(loai)) {
+        loai = Number(
+          prompt(
+            "Nhập loại phản hồi:\n1 = Khiếu nại\n2 = Đề xuất\n3 = Phản hồi tích cực"
+          )
+        );
+      }
+      
+      let mucDo = 0;
+      
+      if (loai === 1) {
+        while (![1, 2, 3].includes(mucDo)) {
+          mucDo = Number(
+            prompt(
+              "Nhập mức độ nghiêm trọng:\n1 = Nhẹ\n2 = Trung bình\n3 = Nghiêm trọng"
+            )
+          );
+        }
+      }
+      
+      let noiDung = prompt("Nhập nội dung ngắn gọn:");
+      
+      tongSo++;
+      
+      if (loai === 1 && mucDo === 3) {
+        khieuNaiNghiemTrong++;
+        console.log("→ Chuyển ngay lãnh đạo - Khiếu nại nghiêm trọng");
+      } 
+      else if (loai === 1 && mucDo === 2) {
+        khieuNaiTrungBinh++;
+        console.log("→ Ghi nhận, sẽ xử lý trong ngày - Khiếu nại trung bình");
+      } 
+      else if (loai === 1 && mucDo === 1) {
+        khieuNaiNhe++;
+        console.log("→ Xử lý ngay tại quầy - Khiếu nại nhẹ");
+      } 
+      else if (loai === 2) {
+        deXuat++;
+        console.log("→ Cảm ơn! Đề xuất đã được ghi nhận");
+      } 
+      else if (loai === 3) {
+        tichCuc++;
+        console.log("→ Cảm ơn bạn đã phản hồi tích cực!");
+      }
+    }
+    
+    console.log("===== BÁO CÁO CUỐI CA =====");
+    console.log("Tổng số phản hồi/khiếu nại:", tongSo);
+    console.log("Khiếu nại nghiêm trọng:", khieuNaiNghiemTrong);
+    console.log("Khiếu nại trung bình:", khieuNaiTrungBinh);
+    console.log("Khiếu nại nhẹ:", khieuNaiNhe);
+    console.log("Số đề xuất cải thiện:", deXuat);
+    console.log("Số phản hồi tích cực:", tichCuc);
+    
+    </script>
+</body>
+</html>

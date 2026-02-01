@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let maSach ;
+    let tenSach ;
+    let soLuong ;
+    let sachMat  = 0;
+    let sachHet = 0;
+    let tonNhieu = 0 ;
+    let tonBinhThuong = 0 ;
+
+    let tiepTuc = prompt("Tiếp tục kiểm kê sách tiếp theo ? (Có / không)".trim().toLocaleLowerCase());
+    switch( tiepTuc ){
+      case ("không") :
+        alert ("Kết thúc");
+        break ;
+      
+      case ("có") :
+
+        do{
+        maSach = prompt("Nhập mã sách");
+        }while(!maSach || maSach.trim() === "");
+        
+        tenSach = prompt("Tên sách");
+
+        do{
+        soLuong = +prompt("số lượng thực tế");
+        }while(isNaN(soLuong) || soLuong < 0);
+        
+        let choice = +prompt(`Tình trạng sách ( nhập số tương ứng) 
+          1 Bình thường
+          2 Mất`
+        );
+
+        if (choice === 2) {
+          alert("Sách mất");
+          sachMat++;
+        } else if (soLuong === 0) {
+          alert("Sách hết hàng");
+          sachHet++;
+        } else if (soLuong >= 10) {
+          alert("Sách tồn kho nhiều");
+          tonNhieu++;
+        } else {
+          alert("Sách tồn kho bình thường");
+          tonBinhThuong++;
+        }       
+        break ;
+        default :
+        console.log("Vui lòng nhập có hoặc không");
+    }
+
+  alert(
+  `THỐNG KÊ KIỂM KÊ:
+  Sách mất:  ${sachMat} 
+  Sách hết hàng: ${sachHet}
+  Tồn kho nhiều:  ${tonNhieu} 
+  Tồn kho bình thường:  ${tonBinhThuong}`
+);
+  </script>
+</body>
+</html>

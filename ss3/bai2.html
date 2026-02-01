@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let bookReturns;
+    do {
+     bookReturns = +prompt ("Hôm nay có bao nhiêu lượt trả sách");
+    }while(isNaN(bookReturns) || bookReturns < 0);
+
+    let username ;
+    let bookName ;
+    let retunDate ;
+    let flag = 0;
+    for (let i = 1 ; i <= bookReturns ; i++){
+      username = prompt (`Tên người trả ${i}`);
+      bookName = prompt (`Tên sách trả ${i}`);
+
+      do{
+      retunDate = prompt(`Số ngày đã mượn thực tế (nhập từ 1 trở lên)`);
+      }while(isNaN(retunDate) || retunDate <1);
+
+      if (retunDate <= 14){
+        console.log(`Người ${i} : ${username} - Tên sách : ${bookName}`);
+        console.log ("Trả đúng hạn");
+      }else if (retunDate <= 21){
+        console.log(`Người ${i} : ${username} - Tên sách : ${bookName}`);
+        console.log ("Trả muộn nhẹ + phạt nhắc nhỏ")
+        flag++ ;
+      }else {
+        console.log(`Người ${i} : ${username} - Tên sách : ${bookName}`);
+        console.log("Quá hạn nghiêm trọng + cần ghi biên bản phạt");
+        flag++;
+      }
+    }
+
+
+    console.log(`Tổng số lượt trả sách : ${bookReturns}`);
+    console.log(`Số lượt trả sách >= 15 ngày là : ${flag}`);
+    
+
+    </script>
+</body>
+</html>

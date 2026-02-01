@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    
+    <script>
+      let choice = prompt("Có yêu cầu gia hạn không ?( có . không)").trim() .toLocaleLowerCase();
+      if (choice === "không"){
+        alert("Kết thức chương trình");
+      }else if (choice === "có") {
+        let name = prompt("Nhập tên bạn đọc");
+        let bookName = prompt("Nhập tên sách");
+
+        let borrowingDate;
+        do{
+        borrowingDate = +prompt("Nhập số ngày đã mượn");
+        }while(isNaN(borrowingDate) || borrowingDate < 1);
+
+        let renewalDate ;
+        do{
+        renewalDate = +prompt("Nhập ngày gia hạn");
+        }while(isNaN(renewalDate) || renewalDate < 1);
+
+        if (borrowingDate + renewalDate > 60){
+          console.log("Không được gia hạn: Tổng thời gian vượt quá 60 ngày tối đa");
+        }else if (borrowingDate > 45){
+          console.log("Không được gia hạn: Đã mượn quá lâu (> 45 ngày)");
+        }else {
+         console.log("Gia hạn thành công");
+          
+        }
+      }else {
+       console.log("Vui lòng nhập có hoặc không");
+      }
+    </script>
+  </body>
+  </html>
+</body>
+</html>

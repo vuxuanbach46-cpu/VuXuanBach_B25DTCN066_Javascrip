@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let count = 0 ;
+    let password ;
+
+    while(count < 3){
+    password = prompt("Nhập mật khẩu là admin123");
+
+    if (password === "admin123"){
+      console.log("Đăng nhập thành công")
+      break ;
+    }else{
+      count++;
+      console.log(`Bạn đã nhập sai lần ${count}`);
+    }
+    }
+
+    if (count === 3 ){
+      alert("Hệ thống đã bị khóa");
+    }else {
+      do{
+        let choice = prompt(`Chọn chức năng:
+        1 - Nhập lô sách mới
+        2 - vẽ sơ đồ trên kệ
+        3 - Thoát`)
+
+          switch
+      }while();
+    }
+
+
+    </script>
+</body>
+</html>
