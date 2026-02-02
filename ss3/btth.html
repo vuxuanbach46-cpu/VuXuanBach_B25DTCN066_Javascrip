@@ -1,41 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Quản lý Thư viện</title>
 </head>
 <body>
-  <script>
-    let count = 0 ;
-    let password ;
+<script>
+let maxLogin = 3;
+let count = 0;
+let password;
+let isLogin = false;
 
-    while(count < 3){
-    password = prompt("Nhập mật khẩu là admin123");
+while (count < maxLogin) {
+  password = prompt("Nhập mật khẩu:");
 
-    if (password === "admin123"){
-      console.log("Đăng nhập thành công")
-      break ;
-    }else{
-      count++;
-      console.log(`Bạn đã nhập sai lần ${count}`);
+  if (password === "admin123") {
+    console.log("Đăng nhập thành công");
+    isLogin = true;
+    break;
+  } else {
+    count++;
+    alert(`Sai mật khẩu! Còn ${maxLogin - count} lần thử`);
+  }
+}
+
+if (!isLogin) {
+  console.log("Hệ thống bị khóa");
+} else {
+
+  while (true) {
+    let choice = prompt(
+      "===== MENU =====\n" +
+      "1. Nhập lô sách mới\n" +
+      "2. Vẽ sơ đồ kệ sách\n" +
+      "3. Thoát\n"
+    );
+
+    switch (choice) {
+
+      case "1":
+        let soLuong = +prompt("Bạn muốn nhập bao nhiêu cuốn sách?");
+        let tongTien = 0;
+
+        for (let i = 1; i <= soLuong; i++) {
+          let gia = +prompt(`Nhập giá tiền cuốn sách thứ ${i}:`);
+
+          if (gia <= 0) {
+            console.log(`Giá không hợp lệ ở cuốn ${i}, bỏ qua`);
+            continue;
+          }
+
+          tongTien += gia;
+        }
+
+        console.log("Tổng giá trị nhập kho đợt này là: " + tongTien);
+        break;
+
+      case "2":
+        for (let khu = 1; khu <= 3; khu++) {
+          for (let ke = 1; ke <= 5; ke++) {
+
+            if (khu === 2 && ke === 3) {
+              console.log(`Khu vực ${khu} - Kệ ${ke} (Đang sửa chữa)`);
+              continue;
+            }
+
+            console.log(`Khu vực ${khu} - Kệ ${ke}`);
+          }
+        }
+        break;
+
+      case "3":
+        console.log("Hẹn gặp lại!");
+        break;
+
+      default:
+        alert("Lựa chọn không hợp lệ!");
     }
+
+    if (choice === "3") {
+      break;
     }
-
-    if (count === 3 ){
-      alert("Hệ thống đã bị khóa");
-    }else {
-      do{
-        let choice = prompt(`Chọn chức năng:
-        1 - Nhập lô sách mới
-        2 - vẽ sơ đồ trên kệ
-        3 - Thoát`)
-
-          switch
-      }while();
-    }
-
-
-    </script>
+  }
+}
+</script>
 </body>
 </html>

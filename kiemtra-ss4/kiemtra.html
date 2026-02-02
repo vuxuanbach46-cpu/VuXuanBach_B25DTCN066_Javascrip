@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+  <script>
+    let n = 8;
+    if (n % 2 === 0){
+      alert(`Số [${n}] là số chẵn`);
+    }
+
+    if (n % 2 !== 0){
+      alert(`Số [${n}] là số lẻ`);
+    }
+
+    if(n > 0){
+      alert(`[${n}] là số dương`);
+    }else if (n < 0){
+      alert(`${n} là số âm`);
+    }else {
+      alert(`là số 0`);
+    }
+
+    if (n > 0){
+      for (let i = 1 ; i <= n ; i++){
+        console.log(`${i}`);
+      }
+    }
+
+    if (n <= 0){
+      alert("Giá trị n không hợp lệ để tạo dãy số");
+    }
+
+    
+    let total=0;
+    while (true) {
+
+      let so = prompt("Nhập số muốn kiểm tra (Thoat để dừng)");
+
+      if (so === "Thoat"){
+        break;
+      }
+
+
+      if(so % 3 === 0 && so % 5 === 0){
+        alert("FizzBuzz");
+      }else if (so % 3 === 0){
+        alert("Fizz");
+        total += i;
+      }else if (so % 5 === 0){
+        alert("Buzz");
+      }else {
+        alert(`${so}`);
+      }
+    }
+
+    console.log(`Tổng của tất cả các số đã in ra chữ Fizz là ${total}`);
+
+  </script>
+</body>
+</html>

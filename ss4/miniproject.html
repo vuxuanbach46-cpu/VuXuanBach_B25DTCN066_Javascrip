@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    let count = 0 ;
+    let account ;
+    let password ;
+
+    while (count < 3) {
+      account = prompt("Nhập tài khoản");
+      password = +prompt("Nhập mật khẩu");
+      if (account === "admin" && password === 12345){
+        alert("Đăng nhập thành công");
+        break ;
+      }else if (account !== "admin"){
+        alert("Nhập sai tên đăng nhập");
+        count++;
+      }else if (password !== 12345){
+        alert("Nhập sai mật khẩu");
+        count++;
+      }
+
+      if (count === 3){
+        alert("Tài khoản đã bị khóa");
+        break ;
+      } 
+    }
+
+    let menu = +prompt(`----QUẢN TRỊ THƯ VIỆN----
+    1 PHân loại mã số sách (số nguyên chẵn lẻ)
+    2 Thiết kế bản đồ kho sách (Dạng lưới).
+    3 Dự toán phí bảo trì sách theo năm.
+    4 Tìm mã số sách may mắn (Số nguyên tố/Số đặc biệt).
+    5 Thoát`); 
+
+
+    let total = 0;
+    let even = 0;
+    let odd = 0;
+    switch(menu){
+      case (1) :
+        while(true){
+        let maSach = +prompt("Nhập mã sách (0 đẻ dừng lại)");
+        total++;
+
+        if (maSach % 2 === 0){
+          even++;
+        }else{
+          odd++;
+        }
+
+        if (maSach === 0){
+          alert("Thoát nhập mã sách");
+          break ;
+        }
+      }
+        console.log(`Tổng số lượng mã sách đã nhập là : ${total}
+        Số mã chẵn là : ${even}
+        Số mã lẻ là : ${odd}`);
+      break;
+
+      case (2) :
+
+      let row = 0 ;
+      let col = 0 ;
+
+      while(true){
+        row = +prompt("Nhập số hàng");
+        col = +prompt("Nhập số cột");
+
+        if(!isNaN(row) && !isNaN(col) && row >= 0 && col >= 0){
+          break;
+        }
+
+        alert("Nhập sai");
+      }
+
+      for (let i = 1 ; i <= row ;i++){
+        let line = "";
+
+        for(let j = 1 ; j <= col ; j++){
+          if (i === j){
+            line += ` [${i}-${j}] Kệ ưu tiên`;
+          }else {
+            line += ` [${i}-${j}]`;
+          }
+        }
+        console.log(`${line}`);
+      }
+
+      break ;
+
+      case (3) :
+
+      let soLuong = 0 ;
+      let phiBaoTri = 0 ;
+      let year = 0
+
+      while(true){
+        soLuong = +prompt("Nhập số lượng");
+        phiBaoTri = +prompt("Nhập phí bảo trì cho 1 cuốn");
+        year = +prompt("Nhập vào số năm dự toán");
+        if(!isNaN(soLuong) && !isNaN(phiBaoTri) && !isNaN(year) && soLuong >= 1 && phiBaoTri >= 1 && year >= 1){
+          break;
+        }
+        alert("Nhập sai")
+      }
+
+      
+      console.log(`Năm | Phí    |Tổng tiền          `);
+      
+      for (let i  = 1 ; i <= year ; i++){
+
+        let sum = phiBaoTri * soLuong;
+        console.log( `${i}     ${phiBaoTri}     ${sum}`);
+
+        phiBaoTri = (phiBaoTri * 0.1) + phiBaoTri;
+      }
+      break ;
+
+      case (4) :
+        let n = 0;
+        let count = 0 ;
+        while(true){
+          n = +prompt("Nhập N để kiểm tra số may mắn")
+          if (!isNaN(n)){
+            break;
+          }
+        }
+
+        for (let i = 1 ; i <= n ; i++){
+          if (i % 3 === 0 && i % 5 !== 0){
+            console.log(`Mã số may mắn ${i}`);
+            count++
+          }
+        }
+        console.log(`Có tổng ${count} mã may mắn`);
+        
+      break ;
+
+      case (5) :
+        alert("Thoát");
+      break ;
+    }
+
+  </script>
+</body>
+</html>
