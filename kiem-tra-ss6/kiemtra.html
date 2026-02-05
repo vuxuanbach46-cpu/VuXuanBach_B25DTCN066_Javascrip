@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+    // Bài 1
+
+    let strName = "Quý, Nam, Lan, Hùng, Nam";
+    
+    let arrName = strName.split(`, `);
+    // let arrName = ["Quý", "Nam", "Lan", "Hùng", "Nam"];
+    
+    strName.split(arrName);
+    console.log(`${arrName}`);
+    
+    arrName.reverse();
+    console.log(`${arrName}`);
+    // Có làm thay đổi mảng gốc.
+
+      if (arrName.includes("Lan")){
+        console.log(`Tên Lan tồn tại trong mảng`);
+      }else{
+        console.log(`Tên Lan không tồn tại trong mảng`);
+      }
+
+      arrName.reverse(arrName);
+      console.log(`${arrName}`);
+      let index = - 1 ;
+      for (let i = 0 ; i < arrName.length ; i++){
+        if (arrName[i] === "Nam"){
+          index = i ;
+          break;
+        }
+      }
+      console.log(`Tên Nam ở vị trí ${index}`);
+      
+
+    // Bài 2 
+
+    let monney =  [100,200,300,400];
+    for (let element of monney){
+      console.log(`${element}`);
+    }
+
+    for (let index in monney){
+      console.log(`${index}`);
+    }
+
+    let sum = 0 ;
+    for (let i = 0 ; i < monney.length ; i++){
+      if (i % 2 === 0){
+        sum += monney[i];
+      }
+    }
+    console.log(`Tổng các phần từ ở vị trí chẵn là ${sum}`);
+    
+
+  </script>
+</body>
+</html>

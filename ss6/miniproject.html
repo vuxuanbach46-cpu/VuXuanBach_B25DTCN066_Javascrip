@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+    
+    let count = 0 ;
+    let account ;
+    let password ;
+
+    // while (count < 3) {
+    //   account = prompt("Nhập tài khoản");
+    //   password = +prompt("Nhập mật khẩu");
+    //   if (account === "admin" && password === 12345){
+    //     alert("Đăng nhập thành công");
+    //     break ;
+    //   }else if (account !== "admin"){
+    //     alert("Nhập sai tên đăng nhập");
+    //     count++;
+    //   }else if (password !== 12345){
+    //     alert("Nhập sai mật khẩu");
+    //     count++;
+    //   }
+
+    //   if (count === 3){
+    //     alert("Tài khoản đã bị khóa");
+    //     break ;
+    //   } 
+    // }
+
+    let libraries = ["Toán", "Văn", "Anh"];
+    while(true){
+    let choice = +prompt(`---- MENU ----
+    1. Nhập thêm lô sách mới.
+    2. Hiển thị danh sách sách.
+    3. Tìm kiếm sách.
+    4. Cập nhật tên sách.
+    5. Đảo ngược thứ tự kệ sách.
+    6. Nhập kho từ nguồn khác.
+    7 .Thoát chương trình.
+    `)
+
+    // if(choice < 1 || choice > 7){
+    //   alert("Nhập từ 1 đến 7");
+    //   break;
+    // }
+
+    switch(choice){
+      case 1 :
+        let bookName = prompt("Nhập tên sách cách nhau bởi dấu (,)");
+
+        let newBook = bookName.split(",");
+        let count = 0 ;
+        
+        for (let i = 0; i < newBook.length; i++) {
+          let book = newBook[i].trim();
+          book = newBook.trim();
+          if (book === ""){
+            continue;
+          }
+          libraries.push(book);
+          count++;
+        }
+        console.log(`Số lượng sách được thêm vào là ${count}`);
+        
+        
+        break;
+      case 2 :
+        console.log("=== DANH SÁCH SÁCH TRONG KHO ===");
+
+        for (let i = 0; i < books.length; i++) {
+          console.log(`${i + 1}. ${books[i]}`);
+        }
+
+        break;
+      case 3 :
+         let tenSach = prompt("Nhập tên sách cần tìm");
+
+        if (tenSach === null || tenSach.trim() === "") {
+          alert("Tên sách không được để trống!");
+          break;
+        }
+
+        tenSach = tenSach.trim();
+
+        let index = books.indexOf(tenSach);
+
+        if (index === -1) {
+          alert("Không tìm thấy sách trong kho!");
+        } else {
+          alert(`Sách "${tenSach}" được tìm thấy tại vị trí ${index}`);
+        }
+
+        break;
+      case 4 :
+        
+        let tenCu = prompt("Nhập tên sách cần sửa");
+        if (tenCu === null || tenCu.trim() === "") {
+          alert("Tên sách cũ không được để trống!");
+          break;
+        }
+
+        tenCu = tenCu.trim();
+        let indexOdd = books.indexOf(tenCu);
+        if (indexOdd === -1) {
+          alert("Không tồn tại cuốn sách này trong kho!");
+          break;
+        }
+
+        let tenMoi = prompt("Nhập tên sách mới");
+        if (tenMoi === null || tenMoi.trim() === "") {
+          alert("Tên sách mới không được để trống!");
+          break;
+        }
+        tenMoi = tenMoi.trim();
+        books[index] = tenMoi;
+        alert(`Đã cập nhật thành công: "${tenCu}" → "${tenMoi}"`);
+        break;
+      case 5 :
+         books.reverse();
+
+          console.log("=== DANH SÁCH SAU KHI ĐẢO NGƯỢC ===");
+          for (let i = 0; i < books.length; i++) {
+            console.log(`${i + 1}. ${books[i]} (index: ${i})`);
+          }
+
+        break;
+      case 6 :
+         let chiNhanhBooks = ["Sách Kỹ Năng", "Truyện Tranh"];
+         books = books.concat(chiNhanhBooks);
+         console.log("=== DANH SÁCH SAU KHI GỘP KHO ===");
+
+        for (let i = 0; i < books.length; i++) {
+          console.log(`${i + 1}. ${books[i]}`);
+        }
+        break;
+      case 7 :
+        alert("Thoát chương trình");
+        break;
+    }
+    if (choice === 7){
+      break;
+    }
+    }
+
+  </script>
+</body>
+</html>

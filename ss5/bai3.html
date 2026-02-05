@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    let booksid = [];
+    let booksName = [];
+    let inventoryQuantity = [];
+    let soLuong = 0 ;
+    
+    while(true){
+      soLuong = +prompt("Có bao nhiêu loại sách cần kiểm tra bổ sung hôm nay?");
+      if (!isNaN(soLuong) && soLuong >= 1){
+        break;
+      }
+    }
+
+    for (let i = 0 ; i < soLuong ; i++){
+
+      while(true){
+        let booksid1 = prompt("Nhập mã sách").trim();
+        if (booksid1 !== ""){
+          booksid.push(booksid1);
+          break;
+        }
+        alert("Không được để trống");
+      }
+
+      while(true){
+        let booksName1 = prompt("Nhập tên sách").trim();
+        
+        if (booksName1 !== ""){
+          booksName.push(booksName1);
+          break;
+        }
+        alert("Không được để trống");
+      }
+
+      while(true){
+        let inventoryQuantity1 = +prompt(`Nhập số lượng tồn kho hiện tại của sách thứ ${i + 1}`);
+        
+        if (!isNaN(inventoryQuantity1) && inventoryQuantity1 >= 0){
+          inventoryQuantity.push(inventoryQuantity1);
+          break;
+        }
+        alert("Phải nhập số nguyên >= 0");
+      }
+    }
+
+    console.log(`Danh sách cần xem xét bổ sung (${soLuong} loại) :`);
+    for(let i = 0 ; i < soLuong ; i++){
+      console.log(`${i + 1}.  Mã : ${booksid[i]}  -  Tên : ${booksName[i]} - Còn: ${inventoryQuantity[i]} bản`);
+    }
+
+    let count = 0 ;
+    for(let i = 0 ; i < inventoryQuantity.length ; i++){
+      if (inventoryQuantity[i] <= 5){
+        count++;
+      }
+    }
+    console.log(`Số sách có tồn kho <= 5 bản : ${count} loại`);
+
+    let hetHang = [];
+    for (let i = 0 ; i < booksid.length ; i++){
+      if (inventoryQuantity[i] === 0){
+        hetHang.push(booksid[i]);
+      }
+    }
+    console.log(`Các mã sách đã hết hàng (0 bản): ${hetHang.join(", ")}`);
+
+  </script>
+</body>
+</html>

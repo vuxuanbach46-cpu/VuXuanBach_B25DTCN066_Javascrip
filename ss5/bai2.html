@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let book = [];
+    let soLuong = 0 ;
+
+    while(true){
+      soLuong = +prompt("Hôm nay có bao nhiêu cuốn sách bị trả muộn? ");
+      if (!isNaN(soLuong) && soLuong >= 1){
+        break;
+      }
+    }
+
+    let count = 0 ;
+    for (let i = 1 ; i <= soLuong ; i++){
+      let bookName = prompt("Nhập tên từ cuốn sách bị trả muộn");
+      book.push(bookName);
+      if (book[i - 1].length > 20){
+        count++
+      }
+    }
+
+    console.log(`Tổng số sách bị trả muộn ${soLuong}
+    Danh sách bị trả muôn : `);
+    for (let i = 1 ; i <= soLuong ; i++){
+      console.log(`${i} ${book[i - 1]}`);
+    }
+    console.log(`có trên 20 ký tự là ${count}`);
+    
+  </script>
+</body>
+</html>

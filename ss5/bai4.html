@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    let booksid = [];
+    let booksName = [];
+    let bookStatus = [];
+    let soLuong = 0 ;
+    
+    while(true){
+      soLuong = +prompt("Có bao nhiêu cuốn sách cần kiểm tra tình trạng hôm nay?");
+      if (!isNaN(soLuong) && soLuong >= 1){
+        break;
+      }
+    }
+
+    for (let i = 0 ; i < soLuong ; i++){
+
+      while(true){
+        let booksid1 = prompt("Nhập mã sách").trim();
+        if (booksid1 !== ""){
+          booksid.push(booksid1);
+          break;
+        }
+        alert("Không được để trống");
+      }
+
+      while(true){
+        let booksName1 = prompt("Nhập tên sách").trim();
+        
+        if (booksName1 !== ""){
+          booksName.push(booksName1);
+          break;
+        }
+        alert("Không được để trống");
+      }
+
+      while(true){
+        let choice = +prompt(`Nhập tình trạng ban đầu 
+        1 → "Hỏng nhẹ" 
+        2 → "Hỏng nặng" 
+        3 → "Cần sửa gấp"`)
+        if (choice === 1){
+          bookStatus.push("Hỏng nhẹ")
+          break;
+        }else if (choice === 2 ){
+          bookStatus.push("Hỏng nặng")
+          break;
+        }else if (choice === 3){
+          bookStatus.push("Cần sửa gấp");
+          break;
+        }else{
+          alert("Lựa chọn không hợp lệ ");
+        }
+      }
+
+    }
+    console.log(`Danh sách hiện tại (${soLuong} cuốn) :`);
+    for (let i = 0 ; i < soLuong ; i++){
+      console.log(`${i + 1}. ${booksid[i]} - ${booksName[i]} - ${bookStatus[i]}`);
+    }
+
+    alert("Bắt đầu chế độ chỉnh sửa");
+    let choiceEdit = +prompt(`Hỏi người dùng muốn làm gì:
+      1: Sửa tình trạng một cuốn sách
+      2: Loại bỏ (xóa) một cuốn sách khỏi danh sách
+      0: Kết thúc và in báo cáo cuối`);
+
+    switch (choiceEdit){
+      case 1: {
+      let booksidEdit = prompt("Nhập mã sách cần sửa");
+
+      if (booksidEdit === null) {
+        alert("Đã hủy!");
+        break;
+      }
+
+      booksidEdit = booksidEdit.trim();
+
+      // Tìm vị trí index
+      let index = -1;
+
+      for (let i = 0; i < booksid.length; i++) {
+        if (booksid[i] === booksidEdit) {
+          index = i;
+          break;
+        }
+      }
+
+      // Không tìm thấy
+      if (index === -1) {
+        alert("Không tìm thấy mã sách!");
+        break;
+      }
+
+      // Chọn tình trạng mới
+      while (true) {
+
+        let choiceEdit2 = +prompt(
+          "Chọn tình trạng mới:\n" +
+          "1. Hỏng nhẹ\n" +
+          "2. Hỏng nặng\n" +
+          "3. Cần sửa gấp\n" +
+          "4. Đã sửa xong\n" +
+          "5. Loại bỏ"
+        );
+
+        if (choiceEdit2 === 1) {
+          bookStatus[index] = "Hỏng nhẹ";
+          break;
+        }
+
+        if (choiceEdit2 === 2) {
+          bookStatus[index] = "Hỏng nặng";
+          break;
+        }
+
+        if (choiceEdit2 === 3) {
+          bookStatus[index] = "Cần sửa gấp";
+          break;
+        }
+
+        if (choiceEdit2 === 4) {
+          bookStatus[index] = "Đã sửa xong";
+          break;
+        }
+
+        if (choiceEdit2 === 5) {
+          bookStatus[index] = "Loại bỏ";
+          break;
+        }
+
+        alert("Chọn từ 1 đến 5!");
+      }
+
+      // In lại danh sách sau khi sửa
+      console.log("Danh sách sau khi cập nhật:");
+
+      for (let i = 0; i < booksid.length; i++) {
+        console.log(
+          `${i + 1}. ${booksid[i]} - ${booksName[i]} - ${bookStatus[i]}`
+        );
+      }
+
+      break;
+
+      }
+      case 2 : {
+        let deletee = prompt("Nhập mã sách cần xóa");
+        if (deletee === null){
+          alert("Đã hủy");
+          break;
+        }
+
+        let index = -1;
+
+        for (let i = 0; i < soLuong; i++) {
+          if (booksid[i] === deletee) {
+            index = i;
+            break;
+          }
+        }
+
+        // Không tìm thấy
+        if (index === -1) {
+          alert("Không tìm thấy mã sách!");
+          break;
+        }
+
+        booksId.splice(index, 1);
+        booksName.splice(index, 1);
+        bookStatus.splice(index, 1);
+        alert("Đã xóa thành công");
+
+
+        break;
+      }
+      case 0: {
+
+      let countDone = 0;   
+      let countRemove = 0; 
+      for (let i = 0; i < bookStatus.length; i++) {
+        if (bookStatus[i] === "Đã sửa xong") {
+          countDone++;
+        }
+        if (bookStatus[i] === "Loại bỏ") {
+          countRemove++;
+        }
+      }
+
+      console.log("===== BÁO CÁO CUỐI =====");
+
+      console.log("Tổng số sách còn lại: " + booksid.length);
+      console.log("Số sách đã sửa xong: " + countDone);
+      console.log("Số sách loại bỏ: " + countRemove);
+      console.log("===== DANH SÁCH CÒN LẠI =====");
+
+      if (booksid.length === 0) {
+        console.log("Không còn cuốn sách nào!");
+      } else {
+
+        for (let i = 0; i < booksid.length; i++) {
+          console.log(
+            `${i + 1}. ${booksid[i]} - ${booksName[i]} - ${bookStatus[i]}`
+          );
+        }
+
+      }
+
+      break;
+    }
+
+      default :{
+        alert("lựa chọn không hợp lệ");
+      }
+    }
+
+  </script>
+</body>
+</html>

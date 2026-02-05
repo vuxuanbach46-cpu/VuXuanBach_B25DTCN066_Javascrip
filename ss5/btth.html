@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+
+    let books = ["Nha Gia Kim", "Dac Nhan Tam", "Tuan Lam Viec 4 Gio"];
+
+
+    let choice ;
+    while (true){
+      choice = +prompt(`=== QUẢN LÝ THƯ VIỆN 4.0===
+      1. Xem danh sách
+      2. Nhập sách mới
+      3. Mượn sách (Xóa)
+      4. Sửa tên sách
+      5. Sắp xếp kệ
+      0. Thoát`)
+      switch(choice){
+        case 1 :{
+          console.log(`Số lượng sách hiện có trong kho là : ${books.length}`);
+          let line = "";
+          for (let i = 0 ; i < books.length ; i++){
+            line += (i+1) + " - " + books[i] + " ";
+          }
+          console.log(line);
+          break;
+        }
+        case 2 :{
+          let nameNew = prompt(`Nhập tên cuốn sách mới`);
+          books.push(nameNew);
+          alert('Đã thêm thành công');
+          break;
+        }
+        case 3 :{
+          let muonSach = prompt("Nhập tên cuốn sách muốn mượn");
+          let index = books.indexOf(muonSach) ;
+          if (index === -1){
+            alert("Không có cuốn sách đó trong kho");
+          }else{
+            books.splice(index,1);
+            console.log(`Đã cho mượn sách ${muonSach}`);
+          }
+          break;
+        }
+        case 4 :{ 
+          let nameOdd = prompt("Nhập tên sách cũ cần cập nhật");
+
+          let indexNameOdd = books.indexOf(nameOdd);
+          if (indexNameOdd === -1){
+            alert("không tìm thấy");
+          }
+          let newName = prompt("Nhập tên sách mới");
+          books[indexNameOdd] = newName ;
+        
+          break;
+        }
+        
+        case 5 :{
+          books.sort();
+          console.log(`Danh sách sau khi sắp xếp là : ${books}`);
+          
+          break;
+        }
+        case 0 :{
+          alert("Thoát")
+          break;
+        }
+      }
+      if (choice === 0){
+        break;
+      }
+    }
+
+  </script>
+</body>
+</html>
