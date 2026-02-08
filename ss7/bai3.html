@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+  let players = [];
+
+  let soLuong;
+  while (true) {
+    let input = prompt("Có bao nhiêu cầu thủ cần nhập vào đội bóng?");
+    soLuong = Number(input);
+    if (!isNaN(soLuong) && soLuong > 0) {
+      break;
+    }
+    alert("Phải nhập số nguyên dương");
+  }
+
+  function pushPlayer(playerId, name, position) {
+    players.push(`${playerId}-${name}-${position}`);
+  }
+
+  for (let i = 0; i < soLuong; i++) {
+    let id;
+    while (true) {
+      id = prompt(`Nhập mã cầu thủ ${i + 1}:`);
+      if (id && id.trim() !== "") {
+        id = id.trim();
+        let trung = false;
+        for (let p of players) {
+          if (p.split("-")[0] === id) {
+            trung = true;
+            break;
+          }
+        }
+        if (!trung) break;
+        alert("Mã cầu thủ đã tồn tại");
+      }
+    }
+
+    let name;
+    while (true) {
+      name = prompt("Nhập tên cầu thủ:");
+      if (name && name.trim() !== "") {
+        name = name.trim();
+        break;
+      }
+    }
+
+    let pos;
+    let position;
+    while (true) {
+      let input = prompt(
+        "Nhập vị trí:\n1 = Thủ môn\n2 = Hậu vệ\n3 = Tiền vệ\n4 = Tiền đạo"
+      );
+      pos = Number(input);
+      if (pos >= 1 && pos <= 4) {
+        if (pos === 1) position = "Thủ môn";
+        if (pos === 2) position = "Hậu vệ";
+        if (pos === 3) position = "Tiền vệ";
+        if (pos === 4) position = "Tiền đạo";
+        break;
+      }
+    }
+
+    pushPlayer(id, name, position);
+  }
+
+  function printTeamRoster() {
+    console.log(`Đội bóng hiện tại (${players.length} cầu thủ):`);
+    for (let i = 0; i < players.length; i++) {
+      let parts = players[i].split("-");
+      console.log(
+        `${i + 1}. Mã: ${parts[0]} | Tên: ${parts[1]} | Vị trí: ${parts[2]}`
+      );
+    }
+  }
+
+  printTeamRoster();
+</script>
+</body>
+</html>
