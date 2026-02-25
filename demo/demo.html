@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Christmas Ultimate GOD MODE</title>
+<style>
+body{margin:0;overflow:hidden;background:#000}
+video{display:none}
+#hud{
+ position:fixed;top:10px;left:10px;
+ color:#00ffcc;font-family:monospace;
+ font-size:14px
+}
+</style>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+</head>
+<body>
+
+<video id="video" autoplay playsinline></video>
+<div id="hud">Score: 0</div>
+
+<script type="module">
+import * as THREE from "three";
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
+
+/* ================= BASIC SETUP ================= */
+
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,0.1,1000);
+camera.position.z=18;
+
+const renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth,innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const composer=new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene,camera));
+composer.addPass(new UnrealBloomPass(
+ new THREE.Vector2(innerWidth,innerHeight),
+ 2.5,0.4,0.85
+));
+
+/* ================= KALMAN FILTER ================= */
+
+class Kalman{
+ constructor(){
+  this.R=0.01; this.Q=3;
+  this.A=1; this.C=1;
+  this.cov=NaN; this.x=NaN;
+ }
+ filter(z){
+  if(isNaN(this.x)){
+   this.x=z; this.cov=1;
+  }else{
+   const predX=this.A*this.x;
+   const predCov=this.A*this.cov*this.A+this.R;
+   const K=predCov*this.C/(this.C*predCov*this.C+this.Q);
+   this.x=predX+K*(z-this.C*predX);
+   this.cov=predCov-K*this.C*predCov;
+  }
+  return this.x;
+ }
+}
+
+const kx=new Kalman();
+const ky=new Kalman();
+
+/* ================= CHRISTMAS TREE ================= */
+
+const tree=new THREE.Mesh(
+ new THREE.ConeGeometry(4,8,32),
+ new THREE.MeshStandardMaterial({color:0x0a5c2f})
+);
+scene.add(tree);
+
+const light=new THREE.PointLight(0xffffff,2);
+light.position.set(0,10,10);
+scene.add(light);
+
+/* ================= PROTECTION RING ================= */
+
+const ring=new THREE.Mesh(
+ new THREE.TorusGeometry(5,0.3,16,100),
+ new THREE.MeshBasicMaterial({color:0xffff00})
+);
+ring.rotation.x=Math.PI/2;
+scene.add(ring);
+
+/* ================= MINI GAME GIFTS ================= */
+
+let gifts=[];
+let score=0;
+const hud=document.getElementById("hud");
+
+function spawnGift(){
+ const gift=new THREE.Mesh(
+  new THREE.BoxGeometry(0.7,0.7,0.7),
+  new THREE.MeshBasicMaterial({color:0xff0000})
+ );
+ gift.position.set((Math.random()-0.5)*14,10,(Math.random()-0.5)*6);
+ gift.speed=0.05+Math.random()*0.05;
+ scene.add(gift);
+ gifts.push(gift);
+}
+setInterval(spawnGift,1000);
+
+/* ================= SHOOT ================= */
+
+function shoot(){
+ const beam=new THREE.Mesh(
+  new THREE.CylinderGeometry(0.1,0.1,10),
+  new THREE.MeshBasicMaterial({color:0x00ffff})
+ );
+ beam.rotation.x=Math.PI/2;
+ beam.position.y=2;
+ scene.add(beam);
+ setTimeout(()=>scene.remove(beam),200);
+}
+
+/* ================= FIREWORK ================= */
+
+function firework(){
+ const sphere=new THREE.Mesh(
+  new THREE.SphereGeometry(0.2,16,16),
+  new THREE.MeshBasicMaterial({color:0xff00ff})
+ );
+ sphere.position.set(0,5,0);
+ scene.add(sphere);
+ setTimeout(()=>scene.remove(sphere),400);
+}
+
+/* ================= LOOP ================= */
+
+function animate(){
+ requestAnimationFrame(animate);
+
+ gifts.forEach((g,i)=>{
+  g.position.y-=g.speed;
+
+  if(g.position.distanceTo(ring.position)<5.3){
+   scene.remove(g);
+   gifts.splice(i,1);
+   score+=10;
+  }
+
+  if(g.position.y<-6){
+   scene.remove(g);
+   gifts.splice(i,1);
+   score-=5;
+  }
+ });
+
+ hud.innerText="Score: "+score;
+
+ composer.render();
+}
+animate();
+
+/* ================= HAND TRACKING ================= */
+
+const video=document.getElementById("video");
+navigator.mediaDevices.getUserMedia({video:true})
+.then(s=>video.srcObject=s);
+
+const hands=new window.Hands({
+ locateFile:(file)=>`https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+});
+
+hands.setOptions({
+ maxNumHands:2,
+ modelComplexity:1,
+ minDetectionConfidence:0.7,
+ minTrackingConfidence:0.7
+});
+
+let fistHoldTime=0;
+
+hands.onResults(results=>{
+ if(!results.multiHandLandmarks) return;
+
+ results.multiHandLandmarks.forEach((hand)=>{
+
+  // Smooth movement
+  const x=kx.filter((hand[9].x-0.5)*14);
+  ring.position.x=x;
+
+  // pinch
+  const thumb=hand[4];
+  const index=hand[8];
+  const pinch=Math.hypot(thumb.x-index.x,thumb.y-index.y);
+
+  if(pinch<0.03){
+   shoot();
+  }
+
+  // fist
+  const palm=hand[0];
+  const tip=hand[8];
+  const dist=Math.hypot(tip.x-palm.x,tip.y-palm.y);
+
+  if(dist<0.05){
+   fistHoldTime+=0.1;
+   tree.scale.set(0.7,0.7,0.7);
+
+   if(fistHoldTime>20){
+    gifts.forEach(g=>scene.remove(g));
+    gifts=[];
+    score+=50;
+   }
+  }else{
+   tree.scale.set(1.2,1.2,1.2);
+   fistHoldTime=0;
+  }
+
+  // open fast firework
+  if(dist>0.2){
+   firework();
+  }
+
+ });
+
+});
+
+async function detect(){
+ await hands.send({image:video});
+ requestAnimationFrame(detect);
+}
+video.addEventListener("loadeddata",detect);
+
+addEventListener("resize",()=>{
+ camera.aspect=innerWidth/innerHeight;
+ camera.updateProjectionMatrix();
+ renderer.setSize(innerWidth,innerHeight);
+ composer.setSize(innerWidth,innerHeight);
+});
+</script>
+</body>
+</html>

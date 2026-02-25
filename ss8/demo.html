@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=sc, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let studentss = ["AN" , "Thôi" , "Bách" ] ;
+    let scoures = [8 , 9 , 10 , -1];
+    // forEach . duyệt từ đầu đến cuối .
+    // studentss.forEach(function () { })
+    // studentss.forEach((element , index , arr ) => {
+    //   console.log(`Giá trị phần tử  ${element}`);
+    //   console.log(`Vị trí phần tử ${index}`);
+    //   console.log(`Mảng ban đầu ${arr}`);
+    // });
+
+    // map
+    let newscoures = scoures.map((element , index , arr) => 1  );
+
+    console.log(newscoures);
+    
+    // filter
+    let temp = scoures.filter((element , index , arr) => element > 9)
+    console.log(temp);
+
+    // some && every . trả về true hoặc fales
+    let check = scoures.every((element) => element >= 0);
+    console.log(check);
+    
+    let check2 = scoures.some((element) => element < 0);
+    console.log(check2);
+    
+
+    // find && findIndex (Tìm kiếm)
+    // find chỉ tìm thằng đầu tiên .
+    let findStudent = studentss.find((element) => element === "Bách");
+
+    let findStudentIndex = studentss.findIndex((index) => index === "Bácdh")
+    console.log(findStudentIndex);
+    
+    console.log(findStudent);
+    
+    // reduce 
+    let totalsource = scoures.reduce((acc , element , index) => {
+      acc += element;
+      console.log(`Gia tri tich luy sau phan tu thu ${index} : ${acc}`);
+      
+      return acc ;
+    } , 0);
+
+    console.log(totalsource);
+    
+  </script>
+</body>
+</html>

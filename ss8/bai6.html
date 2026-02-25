@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const players = [
+      "Messi - Forward - 25 - 15 - 34",
+      "Ronaldo - Forward - 30 - 10 - 38",
+      "Neymar - Forward - 18 - 20 - 32",
+      "De Bruyne - Midfielder - 8 - 25 - 35",
+      "Kante - Midfielder - 2 - 5 - 36",
+      "Van Dijk - Defender - 5 - 3 - 33",
+      "Alisson - Goalkeeper - 0 - 1 - 37",
+    ];
+
+    function  reportByPosition(players) {
+      let xuLy = players.map((element) => {
+        let temp = element.split(" - ");
+        let name = temp[0];
+        let viTri = temp[1];
+        let goals = Number(temp[2]);
+        let kienTao = Number(temp[3]);
+        let soTran = Number(temp[4]);
+
+        return {name , viTri , goals , kienTao , soTran};
+      })
+      console.log(xuLy);
+
+        let grouped = {};
+
+  // duyệt từng cầu thủ
+  for (let i = 0; i < xuLy.length; i++) {
+
+    let player = xuLy[i];
+    let viTri = player.viTri;
+
+    // nếu vị trí chưa tồn tại → tạo mới
+    if (!grouped[viTri]) {
+      grouped[viTri] = {
+        soLuong: 0,
+        tongBanThang: 0,
+        tongKienTao: 0,
+        tongSoTran: 0
+      };
+    }
+
+    // cộng dồn dữ liệu vào vị trí tương ứng
+    grouped[viTri].soLuong++;
+    grouped[viTri].tongBanThang += player.goals;
+    grouped[viTri].tongKienTao += player.kienTao;
+    grouped[viTri].tongSoTran += player.soTran;
+  }
+
+
+  // -------------------------------------------------
+  // BƯỚC 3: IN BÁO CÁO
+  // dùng for...in để duyệt từng vị trí
+  // -------------------------------------------------
+  console.log("BÁO CÁO HIỆU SUẤT THEO VỊ TRÍ\n");
+
+  for (let viTri in grouped) {
+
+    let data = grouped[viTri];
+
+    // tổng hiệu suất = bàn thắng + kiến tạo
+    let tongHieuSuat =
+      data.tongBanThang + data.tongKienTao;
+
+    // trung bình hiệu suất mỗi trận
+    let trungBinh =
+      (tongHieuSuat / data.tongSoTran).toFixed(2);
+
+    // in ra console
+    console.log(viTri + ":\n");
+    console.log("- Số cầu thủ:", data.soLuong);
+    console.log("- Tổng bàn thắng:", data.tongBanThang);
+    console.log("- Tổng kiến tạo:", data.tongKienTao);
+    console.log("- Tổng số trận:", data.tongSoTran);
+    console.log("- Trung bình hiệu suất/trận:", trungBinh);
+    console.log("");
+  }
+
+
+  // -------------------------------------------------
+  // BƯỚC 4: TÍNH TỔNG BÀN THẮNG TOÀN ĐỘI
+  // -------------------------------------------------
+  let tongBanThangToanDoi = 0;
+
+  for (let viTri in grouped) {
+    tongBanThangToanDoi += grouped[viTri].tongBanThang;
+  }
+
+  console.log("------------------------");
+  console.log("Tổng bàn thắng toàn đội :", tongBanThangToanDoi);
+}
+
+
+
+
+    reportByPosition(players);
+  </script>
+</body>
+</html>

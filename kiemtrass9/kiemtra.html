@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let orders =["Đơn hàng A" , "Đơn hàng B" , "Đơn hàng C" , "Đơn hàng D" , "Đơn hàng E"];
+    let revenues = [1500 , 2800 , 1200 , -500 , 3200];
+
+
+    function donHangAm(revenues) {
+      let donHangAmCon = revenues.some((element) => element < 0);
+
+      console.log(`Có đơn hàng âm : ${donHangAmCon}`);
+      
+    }
+
+    function doanhThu(revenues) {
+      let doanhThuCon = revenues.every((element) => element > 500);
+
+      console.log(`Tất cả trên 500 ${doanhThuCon}`);
+      
+    }
+
+    function netProfits(revenues) {
+      let profits = revenues.map((element) => element * 0.9);
+      console.log(profits);
+    }
+
+    donHangAm(revenues);
+    doanhThu(revenues);
+    netProfits(revenues);
+  </script>
+</body>
+</html>
