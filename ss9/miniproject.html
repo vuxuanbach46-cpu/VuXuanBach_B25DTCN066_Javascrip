@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let choice ;
+    let names = [
+      "iPhone 15 Pro Max",
+      "Samsung Galaxy S24 Ultra",
+      "Xiaomi 14",
+      "Oppo Find X7",
+      "Vivo V30",
+      "Realme GT5",
+      "Nokia G22"
+    ];
+    let prices = [
+      1200, 
+      1100, 
+      700, 
+      850, 
+      450, 
+      520,  
+      300 
+    ];
+    let stocks = [10 , 15 , 25 , 12 , 30 , 18 , 40];
+
+    function locSanPhamCaoCap(names, prices) {
+      let ketQua = names.filter((name , index) => prices[index] > 500);
+
+      if (ketQua.length === 0) {
+        alert("Không có sản phẩm cao cấp");
+      }else{
+        alert(`Sản phẩm cao cấp : ${ketQua}`);
+      }
+    }
+    
+
+    function trangThai(stocks) {
+      let hetHang = stocks.some((element) => element === 0);
+
+      if (hetHang === true){
+        alert("Có sản phẩm đã hết hàng");
+      }else{
+        alert("Không có sản phẩm đã hết hàng");
+      }
+    }
+
+    function kiemTraGiaSanPham(prices) {
+      let giaSanPham = prices.every((element) => element > 100);
+
+      if (giaSanPham){
+        alert("Tất cả sản phẩm có giá trên 100")
+      }else{
+        alert("Có sản phẩm dưới 100");
+      }
+    }
+
+    
+    function tongGiaTri(prices , stocks) {
+      let tong = prices.reduce((acc , element , index) => acc + (element * stocks[index]) , 0);
+      alert (`Tong giá trị kho hàng là ${tong}`);
+    }
+
+    function chietKhau(prices) {
+      prices.forEach((element , index) => prices[index] = element * 0.9);
+      alert("Đã áp dụng chiết khấu 10%");
+    }
+
+    // case 5
+    function timKiem(names, prices, stocks) {
+      let search = prompt("Nhập tên sản phẩm bạn cần tìm kiếm").toLowerCase();
+      let timThay = false;
+      console.log("Kết quả tìm thấy:");
+      names.forEach((element, index) => {
+        if (element.toLowerCase().includes(search)) {
+          console.log(`${element} - Giá: ${prices[index]} - SL: ${stocks[index]}`);
+          timThay = true;
+        }
+      });
+
+      if (!timThay) {
+        alert("Không tìm thấy sản phẩm");
+      }
+    }
+
+    // case 6
+    function status(names , prices , stocks) {
+      let trangThai = stocks.map((element) => element < 0 ? "Hết hàng" : "Còn hàng");
+
+      console.log(`==== TRẠNG THÁI SẢN PHẨM ==== `);
+      names.forEach((element , index) => {
+        console.log(`${element} - Giá: ${prices[index]} - SL: ${stocks[index]} - status : ${trangThai[index]}`);
+      });
+    }
+
+
+    do {
+      choice = +prompt(`----Quản lý kho hàng----
+      1. Lọc danh mục sản phẩm cao cấp
+      2. Kiểm định trạng thái dữ liệu
+      3. Phân tích giá trị vốn hóa
+      4. Triển khia chiến dịch chiết khấu
+      5. Truy vấn sản phẩm theo từ khóa
+      6. Báo cáo trạng thái tồn kho
+      7. Thoát.`);
+      switch (choice) {
+        case 1:
+          locSanPhamCaoCap(names , prices);
+          break;
+        case 2:
+          trangThai(stocks);
+          kiemTraGiaSanPham(prices);
+          break;
+        
+        case 3:
+          tongGiaTri(prices , stocks);
+          break;
+      
+        case 4:
+          chietKhau(prices);
+          break;
+
+        case 5:
+          timKiem(names , prices , stocks);
+          break;
+
+        case 6:
+          status(names , prices , stocks);
+          break;
+
+        case 7:
+          alert ("Thoát");
+          break;
+
+        default:
+          alert("Lựa chọn k phù hợp");
+          break;
+      }
+    }while(choice != 7);
+  </script>
+</body>
+</html>

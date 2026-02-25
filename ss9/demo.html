@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let names = [
+      "iPhone 15 Pro Max",
+      "Samsung Galaxy S24 Ultra",
+      "Xiaomi 14",
+      "Oppo Find X7",
+      "Vivo V30",
+      "Realme GT5",
+      "Nokia G22"
+    ];
+    let prices = [
+      1200,
+      1100,
+      700,
+      850,
+      450,
+      520,
+      300
+    ];
+    let stocks = [0, 15, 25, 12, 30, 18, 40];
+
+  //  case 1 
+  function sanPhamCaoCap(prices , names) {
+    let caoCap = prices.filter((element) => element > 500);
+
+    caoCap.forEach((element , index) => {
+      console.log(`${names[index]} - ${element}`);
+    });
+  }
+
+  // case 2
+  function hetHang(stocks) {
+     let hetHangCon = stocks.some((element) => element <= 0) 
+     console.log((hetHangCon) ? "Có sản phẩm hết hàng" : "Tất cả sản phẩm còn hàng");
+  }
+  function mucGia(prices) {
+    let mucGiaCon = prices.every((element) => element > 100);
+    console.log((mucGiaCon) ? "Tất cả sản phẩm có mức giá trên 100" : "Có sản phẩm giá dưới 100");
+  }
+
+  // case3
+  function tongTaiSan(prices , stocks) {
+    let tongTaiSanCon = prices.reduce((acc , element , index) => acc += element * stocks[index] , 0);
+    console.log(`Tổng giá trị tài sản là ${tongTaiSanCon}`); 
+  }
+
+  // case4
+  function chietKhau(prices) {
+    prices.forEach((element , index) => prices[index] = element * 0.9);
+    console.log(prices);
+  }
+
+  // case5
+  function timKiem(names , prices , stocks) {
+    let search = prompt("Nhập tên sách bạn muốn tìm kiếm").toLowerCase();
+    let timThay = false ;
+    names.forEach( (element , index) => {
+      if (element.toLowerCase().includes(search)){
+        console.log(`${element} - ${prices[index]} - ${stocks[index]}`);
+        timThay = true;
+      }
+    });
+    if (timThay === false){
+      console.log("Không tồn tại sản phẩm");
+    }
+  }
+
+  // case6
+  function status( names , stocks) {
+    let trangThai = stocks.map((element , index) => (element > 0) ? "Còn hàng" : "Hết hàng");
+    
+    names.forEach((element , index) => {
+      console.log(`====  TRẠNG THÁI SÁCH  ====
+      ${names[index]} - ${trangThai[index]}`);
+    });
+  }
+
+    
+    let choice ;
+    do{
+      choice = +prompt(`----Quản lý kho hàng----
+      1. Lọc danh mục sản phẩm cao cấp
+      2. Kiểm định trạng thái dữ liệu
+      3. Phân tích giá trị vốn hóa
+      4. Triển khia chiến dịch chiết khấu
+      5. Truy vấn sản phẩm theo từ khóa
+      6. Báo cáo trạng thái tồn kho
+      7. Thoát.`);
+      switch (choice) {
+        case 1:
+          sanPhamCaoCap(prices , names);
+          break;
+        case 2:
+         hetHang(stocks);
+         mucGia(prices);
+          break;
+        
+        case 3:
+         tongTaiSan(prices , stocks);
+          break;
+      
+        case 4:
+          chietKhau(prices);
+          break;
+
+        case 5:
+          timKiem(names , prices , stocks);
+          break;
+
+        case 6:
+          status(names , stocks)
+          break;
+
+        case 7:
+          alert ("Thoát");
+          break;
+
+        default:
+          alert("Lựa chọn k phù hợp");
+          break;
+      }
+    }while(choice != 7)
+
+
+
+
+
+    // console.log(sum(gia, stocks));
+
+    // function status(stocks) {
+    //   let result = ''
+    //   let ketQua = stocks.map(stock => stock > 0 ? "còn hàng" : "hết hàng");
+    //   names.forEach((ele, index) => {
+    //     result += (`${ele} ${ketQua[index]}\n`);
+
+    //   })
+    //   //   for (let i = 0 ; i < stocks.length ; i++){
+    //   //     stocks[i] > 0 ? "Còn hàng" : "Hết hàng";
+    //   //   }
+    //   return result;
+
+    // }
+
+    // console.log((status(stocks)));
+    
+
+  </script>
+</body>
+
+</html>
