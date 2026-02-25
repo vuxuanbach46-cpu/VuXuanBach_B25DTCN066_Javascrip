@@ -39,18 +39,27 @@
           let ketQua = squad.find((element) => element[0] === search);
           if (ketQua){
             console.log(`Thông tin cầu thủ cần tìm là : ${ketQua[0]}(${ketQua[2]}) : ${ketQua[1]}`);
+          }else{
+            console.log("Không tồn tại cầu thủ trong mảng");
           }
           break;
         case 3:
-          
-          break;
+          let viTriCanLoc = prompt("Nhập vào vị trí cần lọc Ví dụ: FW, MF, DF, GK");
 
+          let viTriCanLocCon = squad.filter((element) => element[2] === viTriCanLoc);
+
+          viTriCanLocCon.forEach((element) => {
+            console.log(`${element[0]}(${element[2]}) : ${element[1]}`);
+          })
+          break;
         case 4:
-          
+          let tongSoBanThang = squad.reduce((acc , element) => acc + element[1] , 0);
+          console.log(`Tổng số bàn thắng ${tongSoBanThang}`);
           break;
 
         case 5:
-          
+          let chuaGhiBan = squad.some((element) => element[1] <= 0);
+          console.log((chuaGhiBan) ? "Có cầu thủ chưa ghi bàn" : "Tất cả cầu thù đã ghi bàn");
           break;
         
         case 0 :
