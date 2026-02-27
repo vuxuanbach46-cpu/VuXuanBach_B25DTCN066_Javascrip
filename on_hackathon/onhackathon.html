@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+  <script>
+    let seeds = [
+      {
+        id: 1,
+        name: "Bí đỏ",
+        importPrice: 500,
+        type: "Hàng năm",
+        season: "Xuân",
+        sellingPrice: 10000,
+        quantity: 1,
+        supplier: "Popcap",
+      },
+      {
+        id: 2,
+        name: "Cà chua bi",
+        importPrice: 800,
+        type: "Hàng năm",
+        season: "Hạ",
+        sellingPrice: 15000,
+        quantity: 50,
+        supplier: "GreenFarm",
+      },
+      {
+        id: 3,
+        name: "Hoa Hồng Leo",
+        importPrice: 5000,
+        type: "Lưu niên",
+        season: "Xuân",
+        sellingPrice: 45000,
+        quantity: 4,
+        supplier: "Popcap",
+      },
+      {
+        id: 4,
+        name: "Cải Bó Xôi",
+        importPrice: 300,
+        type: "Hàng năm",
+        season: "Đông",
+        sellingPrice: 8000,
+        quantity: 100,
+        supplier: "VinSeed",
+      },
+      {
+        id: 5,
+        name: "Dưa Hấu",
+        importPrice: 1200,
+        type: "Hàng năm",
+        season: "Hạ",
+        sellingPrice: 25000,
+        quantity: 30,
+        supplier: "GreenFarm",
+      },
+      {
+        id: 6,
+        name: "Oải Hương (Lavender)",
+        importPrice: 7000,
+        type: "Lưu niên",
+        season: "Thu",
+        sellingPrice: 60000,
+        quantity: 5,
+        supplier: "Popcap",
+      },
+      {
+        id: 7,
+        name: "Cà rốt",
+        importPrice: 400,
+        type: "2 năm",
+        season: "Đông",
+        sellingPrice: 12000,
+        quantity: 80,
+        supplier: "VinSeed",
+      },
+      {
+        id: 8,
+        name: "Hướng Dương",
+        importPrice: 1000,
+        type: "Hàng năm",
+        season: "Hè",
+        sellingPrice: 20000,
+        quantity: 15,
+        supplier: "GreenFarm",
+      },
+      {
+        id: 9,
+        name: "Cây Việt Quất",
+        importPrice: 15000,
+        type: "Lưu niên",
+        season: "Xuân",
+        sellingPrice: 120000,
+        quantity: 8,
+        supplier: "Popcap",
+      },
+    ];
+
+    let choice ;
+    function create(seeds) {
+
+      // Nhập ID
+      let idAdd ;
+      // Kiểm tra ID 
+      while(true){
+        idAdd = prompt("Nhập ID cho sản phẩm bạn muốn thêm");
+
+        se
+
+        let idTrung = seeds.some(element => element.id === idAdd);
+
+        if (idTrung){
+          alert("ID đã tồn tại");
+          continue;
+        }
+
+        if (isNaN(idAdd)){
+          alert("ID phải là số ");
+          continue
+        }
+
+        if (idAdd === ""){
+          alert("Không được để trống ID");
+          continue;
+        }
+        break ;
+
+        
+      }
+    
+    }
+
+    do{
+      choice = +prompt(`-----Lựa chọn chức năng-----
+        1. Thêm hạt giống:
+        2. Hiển thị & Sắp xếp:
+        3. Tìm kiếm nâng cao:
+        4. Cập nhật nhà cung cấp
+        5. Cập nhật & Xóa:
+        6. Nghiệp vụ xuất kho (Bán hàng):
+        7. Báo cáo tài chính (Lợi nhuận):
+        8. Thống kê cảnh báo kho
+        9. Phân loại theo Mùa
+        0. Thoát`
+      );
+        
+      switch (choice) {
+        case 1:
+          create(seeds);
+          break;
+      
+        case 2:
+          
+          break;
+      
+        case 3:
+          
+          break;
+      
+        case 4:
+          
+          break;
+      
+        case 5:
+          
+          break;
+      
+        case 6:
+          
+          break;
+      
+        case 7:
+          
+          break;
+      
+        case 8:
+          
+          break;
+      
+        case 9:
+          
+          break;
+      
+        case 0:
+          alert("Thoát");
+          break;
+      
+        default:
+          alert("Lựa chọn không hợp lê");
+          break;
+      }
+    }while(choice !== 0);
+  </script>
+</body>
+</html>

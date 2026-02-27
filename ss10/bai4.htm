@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const players = [
+    { name: "Messi", years: 18, salary: 100 },
+    { name: "Ronaldo", years: 20, salary: 95 },
+    { name: "Neymar", years: 12, salary: 90 },
+    { name: "Mbappe", years: 7, salary: 85 },
+    { name: "Haaland", years: 5, salary: 80 },
+    { name: "Modric", years: 22, salary: 70 },
+    { name: "Benzema", years: 19, salary: 75 }
+  ];
+
+  function analyzeSalary(minYears , players) {
+    let loc = players.filter((element) => element.years >= minYears);
+
+    let tongSoLuong = loc.reduce((acc , element) => acc + element.salary , 0);
+
+    console.log(`totalSalary : ${tongSoLuong}`);
+    
+
+    let caoNhat = loc[0];
+    for (const key of loc) {
+      if (key.salary > caoNhat.salary){
+        caoNhat = key ;
+      }
+    }
+    console.log("highestPaid:", caoNhat);
+
+    let thapNhat = loc[0];
+    for (const element of loc) {
+      if (element.salary > thapNhat.salary){
+        thapNhat = element;
+      }
+    }
+    console.log("lowestPaid : ", thapNhat);
+    
+
+  }
+
+  
+  analyzeSalary(10 , players);
+  </script>
+</body>
+</html>

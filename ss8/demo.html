@@ -7,8 +7,8 @@
 </head>
 <body>
   <script>
-    let studentss = ["AN" , "Thôi" , "Bách" ] ;
-    let scoures = [8 , 9 , 10 , -1];
+    // let studentss = ["AN" , "Thôi" , "Bách" ] ;
+    // let scoures = [8 , 9 , 10 , -1];
     // forEach . duyệt từ đầu đến cuối .
     // studentss.forEach(function () { })
     // studentss.forEach((element , index , arr ) => {
@@ -18,40 +18,102 @@
     // });
 
     // map
-    let newscoures = scoures.map((element , index , arr) => 1  );
+    // let newscoures = scoures.map((element , index , arr) => 1  );
 
-    console.log(newscoures);
+    // console.log(newscoures);
     
-    // filter
-    let temp = scoures.filter((element , index , arr) => element > 9)
-    console.log(temp);
+    // // filter
+    // let temp = scoures.filter((element , index , arr) => element > 9)
+    // console.log(temp);
 
-    // some && every . trả về true hoặc fales
-    let check = scoures.every((element) => element >= 0);
-    console.log(check);
+    // // some && every . trả về true hoặc fales
+    // let check = scoures.every((element) => element >= 0);
+    // console.log(check);
     
-    let check2 = scoures.some((element) => element < 0);
-    console.log(check2);
+    // let check2 = scoures.some((element) => element < 0);
+    // console.log(check2);
     
 
     // find && findIndex (Tìm kiếm)
     // find chỉ tìm thằng đầu tiên .
-    let findStudent = studentss.find((element) => element === "Bách");
+    // let findStudent = studentss.find((element) => element === "Bách");
 
-    let findStudentIndex = studentss.findIndex((index) => index === "Bácdh")
-    console.log(findStudentIndex);
+    // let findStudentIndex = studentss.findIndex((index) => index === "Bácdh")
+    // console.log(findStudentIndex);
     
-    console.log(findStudent);
+    // console.log(findStudent);
     
     // reduce 
-    let totalsource = scoures.reduce((acc , element , index) => {
-      acc += element;
-      console.log(`Gia tri tich luy sau phan tu thu ${index} : ${acc}`);
+    // let totalsource = scoures.reduce((acc , element , index) => {
+    //   acc += element;
+    //   console.log(`Gia tri tich luy sau phan tu thu ${index} : ${acc}`);
       
-      return acc ;
-    } , 0);
+    //   return acc ;
+    // } , 0);
 
-    console.log(totalsource);
+    // console.log(totalsource);
+
+
+    const squad = [
+      ["Nguyen Van A", 10, "FW"],
+      ["Tran Van B", 5, "MF"],
+      ["Le Van C", 2, "DF"],
+      ["Pham Van D", 12, "FW"],
+      ["Hoang Van E", 0, "GK"],
+      ["Dang Van F", 7, "MF"]
+      ]; 
+
+    let choice ;
+    do{
+    choice = +prompt(`
+      --- QUẢN LÝ ĐỘI BÓNG ---
+      1. Xem danh sách
+      2. Tìm kiếm (Find)
+      3. Lọc vị trí (Filter)
+      4. Tổng bàn thắng (Reduce)
+      5. Kiểm tra hiệu suất (Some/Every)
+      0. Thoát`);
+
+      switch (choice) {
+        case 1:
+          squad.forEach((element) => {
+            console.log(`${element[0]}(${element[2]}) : ${element[1]}`);
+          })
+          break;
+        
+        case 2:
+          let search = prompt("Nhập tên cầu thủ");
+
+          let ketQua = squad.find((element) => element[0] === search);
+          if (ketQua){
+            console.log(`Thông tin cầu thù cần tìm là ${ketQua[0]}(${ketQua[2]}): ${ketQua[1]}`);
+          }else{
+            alert("Không tồn tại tên cầu thủ");
+          }
+          break;
+        case 3:
+          let viTriCanLoc = prompt("Nhập vị trí cần lọc Ví dụ :  FW, MF, DF, GK");
+
+          let viTriCanLocCon = squad.filter((element) => element[2] === viTriCanLoc);
+          viTriCanLocCon.forEach((element) => {
+           console.log(`${element[0]}(${element[2]}) : ${element[1]}`);
+          })
+          break;
+        case 4:
+          let tongSoBanThang = squad.reduce((acc , element) => acc + element[1] , 0);
+          console.log(`Tổng số bàn thắng là ${tongSoBanThang}`);
+          console.log(tongSoBanThang);
+          break;
+        case 5:
+          break;
+        case 0 :
+          alert("Thoát chương trình");
+          break;
+        default:
+          alert("Lựa chọn không hợp lệ");
+      }
+
+    }while(choice != 0);
     
   </script>
 </body>

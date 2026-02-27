@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const player = {
+      name : "Messi",
+      position : "Forward",
+      goals : 8 , 
+      assists : 25 ,
+      matchesPlayed : 35 ,
+    };
+
+    function addPerformanceScore(player) {
+      let hieuSuat = (player.goals + player.assists) / player.matchesPlayed;
+
+      player.performancePerMatch = Number(hieuSuat.toFixed(2));
+
+      player.isKeyPlayer = player.performancePerMatch >= 1.0 ;
+      
+      console.log(player);
+    }
+
+    addPerformanceScore(player);
+  </script>
+</body>
+</html>

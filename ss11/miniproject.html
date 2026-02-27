@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let students = [
+      { id: 1, name: "Nguyen Van An", age: 20, gpa: 8.6, status: "active" },
+      { id: 2, name: "Tran Thi Binh", age: 21, gpa: 2.9, status: "inactive" },
+      { id: 3, name: "Le Minh Khoa", age: 14, gpa: 6.8, status: "active" },
+      { id: 4, name: "Pham Gia Huy", age: 22, gpa: 9.1, status: "active" },
+      { id: 5, name: "Do Thi Lan", age: 20, gpa: 5.4, status: "inactive" }
+    ];
+
+    let choice ;
+
+    // case1 
+    function create(students) {
+      alert("Bắt đầu thêm thông tin sinh viên mới");
+      
+      let newId = students[0];
+      for (const element of students) {
+        if (element.id > newId.id){
+          newId = element ;
+        }
+      }
+
+      let id = newId.id + 1;
+      let name = prompt("Nhập tên sinh viên");
+      let age = +prompt("Nhập tuổi sinh viên");
+      let gpa = +prompt("Nhập GPA thang điểm 10 ");
+      let status = prompt("Nhập trạng thái active / inactive");
+
+      let newStudent = { id , name , age , gpa , status};
+
+      students.push(newStudent);
+    }
+
+    //case 2
+    function read(students) {
+      console.log(`========== THÔNG TIN TOÀN BỘ SINH VIÊN ==========`);
+
+      for (const element of students) {
+        // padEnd chỉ sử dụng cho string
+        console.log(`|${String(element.id).padEnd(2)} | ${element.name.padEnd(15)} | ${String(element.age).padEnd(4)} | ${String(element.gpa).padEnd(4)} | ${element.status.padEnd(10)} |`);
+      }
+
+      console.log(`-------------------------------------------------`);
+    }
+
+    // case 3
+    function gpaGood(students) {
+      
+      let gpaGoodCon = students.filter(element => element.gpa > 8.0);
+      
+      console.log(`====== THÔNG TIN TOÀN BỘ SINH VIÊN CÓ GPA > 8.0 ======`);
+      for (const element of gpaGoodCon) {
+        console.log(`|${String(element.id).padEnd(2)} | ${element.name.padEnd(15)} | ${String(element.age).padEnd(4)} | ${String(element.gpa).padEnd(4)} | ${element.status.padEnd(10)} |`);
+      }
+
+    }
+
+    // case 4
+    function update(students) {
+      let id = +prompt("Nhập id sinh viên cần cập nhật");
+      
+      let studentUpdate = students.find((element) => element.id === id);
+
+      if (studentUpdate === undefined){
+        alert("Không tìm thấy sinh viên");
+      }else{
+        
+        let newName = prompt(`Nhập tên mới cho ID ${id}`);
+        let newGpa = +prompt(`Nhập GPA mới cho ID ${id}`);
+
+        studentUpdate.name = newName ;
+        studentUpdate.gpa = newGpa ;
+        console.log(studentUpdate);
+      }
+    }
+
+    // case 5
+    function xoa(students) {
+      let id = +prompt("Nhập ID cần xóa");
+
+      let deleteStudent = students.filter((element) => element.id !== id);
+
+      if (students.length === deleteStudent.length){
+        alert("Không tìm thấy ID sinh viên");
+      }else{
+        alert("Đã xóa thành công");
+      }
+
+      return deleteStudent ;
+    }
+
+    // case 6
+    function compliance(students) {
+    
+      let tuoiDuoi18 = students.some(element => element.age < 18);
+      alert((tuoiDuoi18) ? "Có tồn tại một sinh viên dưới 18 tuổi" : "Không tồn tại sinh viên nào dưới 18 tuổi");
+
+      let homogeneousState = students.every(element => element.status === "active");
+      alert((homogeneousState) ? "Tất cả sinh viên đang ở trạng thái active" : "Có sinh viên đang ở trạng thái inactive")
+    }
+
+    // case 7
+    function tong(students) {
+      let tongGpa = students.reduce((acc , element) => acc + element.gpa , 0);
+      alert(`Tổng GPA của toàn sinh viên là ${tongGpa}`);
+    }
+
+    // case 8
+    function namNormalizatione(students) {
+      // let newStudents = students.map((element) => ({
+      //   ...element , name : element.name.toUpperCase()
+      // }));
+
+      let newStudents = students.map(element => {
+        return{
+          id: element.id,
+          name: element.name.toUpperCase(),
+          age: element.age,
+          gpa: element.gpa,
+          status: element.status
+        }
+      })
+
+      console.log(newStudents);
+      
+    }
+
+    do{
+      choice = +prompt(`==== QUẢN LÝ SINH VIÊN ====
+      1. Create Student (Thêm mới) 
+      2. Read All Students (In)
+      3. Filter Scholarship Candidates (Nhận học bổng)
+      4. Update Student Profile (Cập nhật thông tin)
+      5. Delete Record (Xóa sinh viên)
+      6. Compliance Verification ()
+      7. Academic Statistics (Trung bình GPA)
+      8. Data Normalization (Chuẩn hóa dữ liệu) 
+      0. Exit (Thoát)
+    `);
+
+    switch (choice) {
+      case 1:
+        create(students);
+        break;
+    
+      case 2:
+        read(students);
+        break;
+    
+      case 3:
+        gpaGood(students);
+        break;
+    
+      case 4:
+        update(students);
+        break;
+    
+      case 5:
+        students = xoa(students);
+        break;
+    
+      case 6:
+        compliance(students);
+        break;
+    
+      case 7:
+        tong(students);
+        break;
+    
+      case 8:
+        namNormalizatione(students);
+        break;
+    
+      case 0:
+        alert("Thoát");
+        break;
+    
+      default:
+        alert("Lựa chọn không hợp lệ");
+        break;
+    }
+
+    }while(choice != 0);
+
+  </script>
+</body>
+</html>

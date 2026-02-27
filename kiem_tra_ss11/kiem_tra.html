@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+   let students = [
+    { id: 1, name: "Nguyen Van A", score: 8.5, gender: "Nam" },
+    { id: 2, name: "Trân Thị B", score: 4.2, gender: "Nữ" },
+    { id: 3, name: "Lê Văn C", score: 9.0, gender: "Nam" },
+    { id: 4, name: "Phạm Thị D", score: 5.5, gender: "Nữ" },
+    { id: 5, name: "Hoang Văn E", score: 3.8, gender: "Nam" }
+  ];
+
+  function studentGood(students) {
+    let studentGoodCon = students.filter(element => element.score >= 8);
+
+    console.log(studentGoodCon);
+  }
+
+  function sinhVienYeu(students) {
+    let sinhVienYeuCon = students.some(element => element.score < 4);
+
+    console.log((sinhVienYeuCon) ? "Có sinh viên yếu" : "Không có sinh viên yếu");
+  }
+
+  function chuanHoaDuLieu(students) {
+    let studentLabels = students.map(element => {
+      `Tên : ${element.name} - Điểm : ${element.score}`;
+
+      console.log(studentLabels);
+    })
+  }
+
+  function normalizeStudents(students) {
+
+  let studentLabels = students.map(student => {
+    return `Tên: ${student.name} - Điểm: ${student.score}`;
+  });
+
+  console.log(studentLabels);
+  
+  return studentLabels;
+}
+
+
+  studentGood(students);
+  sinhVienYeu(students);
+  chuanHoaDuLieu(students);
+  normalizeStudents(students);
+  </script>
+</body>
+</html>
