@@ -39,6 +39,7 @@
         }
         
 
+
         let totalMatches = 0 ;
         let totalGoals = 0 ;
         let totalAssists = 0;
@@ -46,13 +47,55 @@
 
         let searchHistory =  thongTinCauThu.seasons ;
 
-        console.log(searchHistory);
+         let bestSeason = {
+          season: "",
+          goals: -1,
+          assists: -1
+        };
+
+        // console.log(searchHistory);
         
-        for
+        for (const element in searchHistory) {
+          let stats = searchHistory[element];
 
+          totalMatches += stats.matches ;
+          totalGoals += stats.goals ;
+          totalAssists += stats.assists ;
+          totalYellowCards += stats.yellowCards ;
+
+          if (stats.goals > bestSeason.goals || (stats.goals === bestSeason.goals && stats.assists > bestSeason.assists)) {
+            bestSeason = {
+              season: element,
+              goals: stats.goals,
+              assists: stats.assists
+            }
+          };
+
+        }
+
+        let averageGoalsPerMatch = (totalGoals / totalMatches).toFixed(2) ;
+        let averageAssistsPerMatch = (totalAssists / totalMatches).toFixed(2);
+        
+        
+        return {
+          name : thongTinCauThu.name,
+          position : thongTinCauThu.position ,
+          nationality : thongTinCauThu.nationality ,
+          careerStats: {
+            totalMatches ,
+            totalGoals ,
+            totalAssists ,
+            totalYellowCards ,
+            averageGoalsPerMatch ,
+            averageAssistsPerMatch ,
+            bestSeason
+          }
+        }
       }
+      console.log(generatePlayerSeasonReport( "Messi" , teamHistory));
+      
 
-      generatePlayerSeasonReport( "Messi" , teamHistory);
+      
   </script>
 </body>
 </html>

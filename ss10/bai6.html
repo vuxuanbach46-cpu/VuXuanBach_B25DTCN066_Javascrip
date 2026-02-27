@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const players = [
+      { name: "Messi", position: "Forward", age: 36, goals: 25, assists: 15, matches: 34, yellowCards: 2 },
+      { name: "Ronaldo", position: "Forward", age: 39, goals: 30, assists: 10, matches: 38, yellowCards: 4 },
+      { name: "Neymar", position: "Forward", age: 32, goals: 18, assists: 20, matches: 32, yellowCards: 3 },
+      { name: "De Bruyne", position: "Midfielder", age: 33, goals: 8, assists: 25, matches: 35, yellowCards: 1 },
+      { mame: "Kante", position: "Midfielder", age: 33, goals: 2, assists: 5, matches: 36, yellowCards: 0 },
+      { name: "Van Dijk", position: "Defender", age: 33, goals: 5, assists: 3, matches: 33, yellowCards: 2 },
+      { name: "Alisson", position: "Goalkeeper", age: 31, goals: 0, assists: 1, matches: 37, yellowCards: 0 }
+    ];
+
+    function generateRankingReport(minMatches , players) {
+      let cauThuDuocXepHang = players.filter(element => element.matches >= minMatches);
+
+      let them = players.map(element => {
+
+        let performanceScore = ((element.goals + element.assists) / element.matches).toFixed(2) ;
+        let efficiencyScore = (performanceScore - (element.yellowCards / element.matches) * 10).toFixed(2) ;
+
+        console.log(performanceScore);
+        console.log(efficiencyScore);
+        
+        
+
+        element.performance = performanceScore ;
+        element.efficiency =  efficiencyScore;
+
+        return `${element.name} , ${element.performance} , ${element.efficiency} , ${element.goals}`
+      })
+      console.log(them);
+      
+    }
+
+    generateRankingReport(30,players);
+  </script>
+</body>
+</html>
