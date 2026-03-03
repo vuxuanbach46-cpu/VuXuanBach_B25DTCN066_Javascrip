@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Thi Hackthon</h1>
+
+    <script>
+      let staffs = [
+        {
+          id: 1,
+          name: "Nguyễn Văn A",
+          age: 25,
+          salary: 1000,
+          position: "Developer",
+        },
+        {
+          id: 2,
+          name: "Nguyễn Văn B",
+          age: 21,
+          salary: 3000,
+          position: "Tester",
+        },
+        {
+          id: 3,
+          name: "Nguyễn Văn C",
+          age: 28,
+          salary: 2000,
+          position: "Manager",
+        },
+        {
+          id: 4,
+          name: "Nguyễn Văn D",
+          age: 27,
+          salary: 6000,
+          position: "Intern",
+        },
+        {
+          id: 5,
+          name: "Nguyễn Văn E",
+          age: 29,
+          salary: 5000,
+          position: "Developer",
+        },
+      ];
+
+      let choice;
+
+      // case 1
+      function creat(staffs) {
+        let id;
+        while (true) {
+          id = prompt("Nhập ID cần thêm");
+
+          if (id.trim() === ""){
+            alert("ID không được để trống");
+            continue;
+          }
+          id = Number(id);
+
+          if (isNaN(id)){
+            alert("Phải nhập số")
+            continue ;
+          }
+          if (staffs.some((element) => element.id === id)) {
+            alert("ID đã tồn tại");
+            continue;
+          }
+          break;
+        }
+
+        let name;
+        while (true) {
+          name = prompt("Nhập tên cần thêm");
+          if (
+            staffs.some(
+              (element) => element.name.toLowerCase() === name.toLowerCase(),
+            )
+          ) {
+            alert("Tên đã tồn tại đã tồn tại");
+            continue;
+          }
+          break;
+        }
+
+        let age;
+        while (true) {
+          age = prompt("Nhập tuổi cần thêm");
+          if(age.trim() === ""){
+            alert("Không được để trống tuổi");
+            continue ;
+          }
+          age = Number(age);
+          if (age < 18) {
+            alert("Tuổi phải lớn hơn 18");
+            continue;
+          }
+          break;
+        }
+
+        let salary;
+        while (true) {
+          salary = prompt("Nhập lương cần thêm");
+          if (salary.trim() === ""){
+            alert("Lương không được để trống");
+            continue;
+          }
+          salary = Number(salary);
+          if (salary <= 0) {
+            alert("Lương phải lớn hơn 0");
+            continue;
+          }
+          break;
+        }
+
+        let position;
+        let positions = ["developer", "tester", "manager", "intern"];
+        while (true) {
+          position = prompt(
+            "Nhập chức vụ Developer / Tester / Manager / Intern",
+          );
+          if (!positions.includes(position.toLowerCase())) {
+            alert(
+              "Phải nhập 1 trong 4 chức vụ developer / tester / manager / intern",
+            );
+            continue;
+          }
+          break;
+        }
+
+        let newStaffs = {
+          id,
+          name,
+          age,
+          salary,
+          position,
+        };
+
+        staffs.push(newStaffs);
+        alert(`Đã thêm nhân viên ${name} thành công`);
+        console.table(staffs);
+      }
+
+      // case 2
+      function deleteStaffs(staffs) {
+        let name = prompt("Nhập tên cần xóa");
+        let thongTinNhanVien = staffs.findIndex(
+          (element) => element.name.toLowerCase() === name.toLowerCase(),
+        );
+        if (thongTinNhanVien === -1) {
+          alert("Tên không tồn tại trong danh sách");
+        }
+        let xacNhan = prompt(
+          "Nhập Y để xác nhận xóa hoặc N để hủy thao tác xóa",
+        ).toLowerCase();
+        if (xacNhan === "n") {
+          alert("Hủy xóa thành công");
+          return;
+        } else {
+          staffs.splice(thongTinNhanVien, 1);
+          alert("Xóa thành công");
+        }
+      }
+
+      // case 3
+      function displayList(staffs) {
+        let displayListAll = staffs.forEach((element) => {
+          console.log(
+            `ID : ${element.id} | Tên : ${element.name} | Age : ${element.age} | salary : ${element.salary} | Position : ${element.position}`,
+          );
+        });
+      }
+
+      // case 4
+      function updateStaffs(staffs) {
+        let name = prompt("Nhập tên cần cập nhật");
+        let thongTinNhanVien = staffs.findIndex(
+          (element) => element.name.toLowerCase() === name.toLowerCase(),
+        );
+        let thongTinNhanVienCapNhat = staffs.find(
+          (element) => element.name.toLowerCase() === name.toLowerCase(),
+        );
+        if (thongTinNhanVien === -1) {
+          alert("Tên không tồn tại trong danh sách");
+          return;
+        }
+
+        let age;
+        while (true) {
+          age = +prompt("Nhập tuổi cần cập nhật");
+          if (age < 18) {
+            alert("Tuổi phải lớn hơn 18");
+            continue;
+          }
+          break;
+        }
+
+        let salary;
+        while (true) {
+          salary = +prompt("Nhập lương cần thêm");
+          if (isNaN(salary)) {
+            alert("Lương phải là số");
+            continue;
+          }
+          if (salary <= 0) {
+            alert("Lương phải lớn hơn 0");
+            continue;
+          }
+          break;
+        }
+
+        let position;
+        let positions = ["developer", "tester", "manager", "intern"];
+        while (true) {
+          position = prompt(
+            "Nhập chức vụ Developer / Tester / Manager / Intern",
+          );
+          if (!positions.includes(position.toLowerCase())) {
+            alert(
+              "Phải nhập 1 trong 4 chức vụ developer / tester / manager / intern",
+            );
+            continue;
+          }
+          break;
+        }
+
+        thongTinNhanVienCapNhat.age = age ;
+        thongTinNhanVienCapNhat.salary = salary;
+        thongTinNhanVienCapNhat.position = position;
+        alert("Cập nhật thông tin nhân viên thành công");
+      }
+
+      // case 5
+      function findStaffs(staffs) {
+        // Tìm kiếm theo tên
+        function findName(staffs) {
+          let name = prompt("Nhập tên cần tìm kiếm");
+          let thongTinNhanVien = staffs.findIndex(
+            (element) => element.name.toLowerCase() === name.toLowerCase(),
+          );
+
+          let thongTinNhanVienCapNhat = staffs.find(
+            (element) => element.name.toLowerCase() === name.toLowerCase(),
+          );
+
+          if (thongTinNhanVien === -1) {
+            alert("Tên không tồn tại trong danh sách");
+            return;
+          } else {
+            console.log(
+              `Nhân viên tìm thấy : ${thongTinNhanVienCapNhat.name}  , Lương : ${thongTinNhanVienCapNhat.salary} , Chức vụ : ${thongTinNhanVienCapNhat.position}`,
+            );
+          }
+        }
+
+        //  Tìm kiếm theo chức vụ
+        function findPosition(staffs) {
+          let position;
+          let positions = ["developer", "tester", "manager", "intern"];
+          position = prompt(
+            "Nhập chức vụ cần tìm kiếm Developer / Tester / Manager / Intern",
+          );
+          if (!positions.includes(position.toLowerCase())) {
+            alert(`Không ai làm chức vụ ${position}`);
+            return;
+          }
+
+          let thongTinNhanVien = staffs.filter(
+            (element) =>
+              element.position.toLowerCase() === position.toLowerCase(),
+          );
+          console.log(thongTinNhanVien);
+        }
+
+        let choice = +prompt(`=== Lựa chọn phương pháp tìm kiếm ===
+        1 . Tìm kiếm theo tên
+        2 . Tìm kiếm theo chức vụ
+        0 . Thoát`);
+        switch (choice) {
+          case 1:
+            findName(staffs);
+            break;
+          case 2:
+            findPosition(staffs);
+            break;
+          case 0:
+            alert("Thoát chức năng tìm kiếm");
+            break;
+
+          default:
+            alert("Lựa chọn không hợp lệ");
+            break;
+        }
+      }
+
+      // case 6
+      function filterByJob(staffs) {
+        let position;
+        let positions = ["developer", "tester", "manager", "intern"];
+        position = prompt(
+          "Nhập chức vụ cần lọc Developer / Tester / Manager / Intern",
+        );
+        if (!positions.includes(position.toLowerCase())) {
+          alert(`Không ai làm chức vụ ${position}`);
+          return;
+        }
+
+        let thongTinNhanVien = staffs.filter(
+          (element) =>
+            element.position.toLowerCase() === position.toLowerCase(),
+        );
+        let thongTinNhanVienIn = thongTinNhanVien.forEach((element) => {
+          console.log(
+            `ID : ${element.id} | Tên : ${element.name} | Age : ${element.age} | salary : ${element.salary} | Position : ${element.position}`,
+          );
+        });
+      }
+
+      // case 7
+      function sumsalary(staffs) {
+        let sum = staffs.reduce((acc, element) => acc + element.salary, 0);
+        console.log(`Tổng lương của công ty hiện tại là : ${sum} VNĐ`);
+      }
+
+      //case 8
+      function arrange(staffs) {
+        let choice = +prompt(`=== Lựa chọn các xắp sếp ===
+        1 . Tăng dần theo lương
+        2 . Giảm dần theo lương 
+        0 . Thoát`);
+
+        switch (choice) {
+          case 1:
+            let tangDan = staffs.sort((a, b) => a.salary - b.salary);
+            console.log(tangDan);
+            break;
+          case 2:
+            let giamDan = staffs.sort((a, b) => b.salary - a.salary);
+            console.log(giamDan);
+            break;
+
+          case 0:
+            break;
+            alert("Thoát");
+          default:
+            alert("Lựa chọn không hợp lệ");
+            break;
+        }
+      }
+
+      // case 9
+      function findsalary(staffs) {
+        let startsalary = prompt("Nhập lương bắt đầu");
+        if (startsalary.trim() === ""){
+          alert("Không được để trống")
+          return;
+        }
+        startsalary = Number(startsalary);
+        if (startsalary < 0) {
+          alert("Phải nhập số dương");
+          return;
+        }
+        if (isNaN(startsalary)) {
+          alert("Phải nhập số");
+          return;
+        }
+
+        let endsalary = prompt("Nhập lương kết thúc");
+        if (startsalary.trim() === ""){
+          alert("Không được để trống")
+          return;
+        }
+        endsalary = Number(endsalary);
+        if (startsalary < 0) {
+          alert("Phải nhập số dương");
+          return;
+        }
+        if (isNaN(startsalary)) {
+          alert("Phải nhập số");
+          return;
+        }
+        
+        if (startsalary > endsalary) {
+          alert("Lương kết thúc phải lớn hơn lương bắt đầu");
+          return;
+        }
+
+        let khoangLuong = staffs.filter(
+          (element) =>
+            element.salary >= startsalary && element.salary <= endsalary,
+        );
+
+        if (khoangLuong.length === 0) {
+          alert("Không có nhân viên nào trong khoảng lương này");
+        } else {
+          khoangLuong.forEach((element) => {
+            console.log(
+              `ID : ${element.id} | Tên : ${element.name} | Age : ${element.age} | salary : ${element.salary} | Position : ${element.position}`,
+            );
+          });
+        }
+      }
+
+      do {
+        choice = +prompt(`==== QUẢN LÝ NHÂN SỰ ====
+      1. Thêm nhân viên:
+      2. Xóa nhân viên: 
+      3. Hiển thị danh sách nhân viên: 
+      4. Cập nhật thông tin nhân viên:
+      5. Tìm nhân viên:
+      6. Lọc nhân viên theo chức vụ: 
+      7. Tính tổng lương cho công ty:
+      8. Sắp xếp nhân viên theo lương:
+      9. Tìm kiếm nhân viên theo khoảng lương:
+      0. THOÁT `);
+
+        switch (choice) {
+          case 1:
+            creat(staffs);
+            break;
+
+          case 2:
+            deleteStaffs(staffs);
+            break;
+          case 3:
+            displayList(staffs);
+            break;
+          case 4:
+            updateStaffs(staffs);
+            break;
+          case 5:
+            findStaffs(staffs);
+            break;
+          case 6:
+            filterByJob(staffs);
+            break;
+          case 7:
+            sumsalary(staffs);
+            break;
+          case 8:
+            arrange(staffs);
+            break;
+          case 9:
+            findsalary(staffs);
+            break;
+          case 0:
+            alert("THOÁT");
+            break;
+          default:
+            alert("Lựa chọn không hợp lệ");
+            break;
+        }
+      } while (choice != 0);
+    </script>
+  </body>
+</html>

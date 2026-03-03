@@ -20,20 +20,26 @@
     function generateRankingReport(minMatches , players) {
       let cauThuDuocXepHang = players.filter(element => element.matches >= minMatches);
 
-      let them = players.map(element => {
+      let them = cauThuDuocXepHang.map(element => {
 
-        let performanceScore = ((element.goals + element.assists) / element.matches).toFixed(2) ;
-        let efficiencyScore = (performanceScore - (element.yellowCards / element.matches) * 10).toFixed(2) ;
+        let performanceScore = +((element.goals + element.assists) / element.matches).toFixed(2) ;
+        let efficiencyScore = +(performanceScore - (element.yellowCards / element.matches) * 10).toFixed(2) ;
 
         console.log(performanceScore);
         console.log(efficiencyScore);
         
         
 
-        element.performance = performanceScore ;
-        element.efficiency =  efficiencyScore;
+        // element.performance = performanceScore ;
+        // element.efficiency =  efficiencyScore;
 
-        return `${element.name} , ${element.performance} , ${element.efficiency} , ${element.goals}`
+        // return `${element.name} , ${element.performance} , ${element.efficiency} , ${element.goals}`
+
+         return {
+      ...element,
+      performanceScore,
+      efficiencyScore
+    };
       })
       console.log(them);
       

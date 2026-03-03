@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let students = [
+      { id: 1, name: "Nguyen Van A", score: 8.5, gender: "Nam" },
+      { id: 2, name: "Trân Thi B", score: 4.2, gender: "Nữ" },
+      { id: 3, name: "Lê Văn C", score: 9.0, gender: "Nam" },
+      { id: 4, name: "Phạm Thị D", score: 5.5, gender: "Nữ" },
+      { id: 5, name: "Hoang Văn E", score: 3.8, gender: "Nam" }
+    ];
+
+    function phanLoaiVaSapXep(students) {
+      let phanLoai = students.filter(element => element.gender === "Nữ");
+
+      let sapXep = phanLoai.sort((a , b) => b.score - a.score);
+
+      console.table(sapXep);
+      
+    }
+
+    function datYeuCau(students) {
+      let quaMon = students.filter(element => element.score > 5);
+
+      let nameQuaMon = quaMon.map(element => element.name);
+      console.log(nameQuaMon);
+    }
+
+    function trungBinh(student) {
+      let phanLoai = students.filter(element => element.gender === "Nam");
+
+      let tongdiem = phanLoai.reduce((acc , element) => acc + element.score , 0);
+      console.log(tongdiem);
+      
+      
+      let diem = (tongdiem / phanLoai.length).toFixed(1) ;
+      console.log(`Điểm tring bình của các sinh viên nam là ${diem}`);
+      
+    }
+
+    phanLoaiVaSapXep(students);
+    datYeuCau(students);
+    trungBinh(students);
+  </script>
+</body>
+</html>

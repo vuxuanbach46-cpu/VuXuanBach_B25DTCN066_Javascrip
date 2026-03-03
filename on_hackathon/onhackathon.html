@@ -1,143 +1,834 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let seeds = [
+        {
+          id: 1,
+          name: "Bí đỏ",
+          importPrice: 500,
+          type: "Hàng năm",
+          season: "Xuân",
+          sellingPrice: 10000,
+          quantity: 1,
+          supplier: "Popcap",
+        },
+        {
+          id: 2,
+          name: "Cà chua bi",
+          importPrice: 800,
+          type: "Hàng năm",
+          season: "Hạ",
+          sellingPrice: 15000,
+          quantity: 50,
+          supplier: "GreenFarm",
+        },
+        {
+          id: 3,
+          name: "Hoa Hồng Leo",
+          importPrice: 5000,
+          type: "Lưu niên",
+          season: "Xuân",
+          sellingPrice: 45000,
+          quantity: 4,
+          supplier: "Popcap",
+        },
+        {
+          id: 4,
+          name: "Cải Bó Xôi",
+          importPrice: 300,
+          type: "Hàng năm",
+          season: "Đông",
+          sellingPrice: 8000,
+          quantity: 100,
+          supplier: "VinSeed",
+        },
+        {
+          id: 5,
+          name: "Dưa Hấu",
+          importPrice: 1200,
+          type: "Hàng năm",
+          season: "Hạ",
+          sellingPrice: 25000,
+          quantity: 30,
+          supplier: "GreenFarm",
+        },
+        {
+          id: 6,
+          name: "Oải Hương (Lavender)",
+          importPrice: 7000,
+          type: "Lưu niên",
+          season: "Thu",
+          sellingPrice: 60000,
+          quantity: 5,
+          supplier: "Popcap",
+        },
+        {
+          id: 7,
+          name: "Cà rốt",
+          importPrice: 400,
+          type: "2 năm",
+          season: "Đông",
+          sellingPrice: 12000,
+          quantity: 80,
+          supplier: "VinSeed",
+        },
+        {
+          id: 8,
+          name: "Hướng Dương",
+          importPrice: 1000,
+          type: "Hàng năm",
+          season: "Hè",
+          sellingPrice: 20000,
+          quantity: 15,
+          supplier: "GreenFarm",
+        },
+        {
+          id: 9,
+          name: "Cây Việt Quất",
+          importPrice: 15000,
+          type: "Lưu niên",
+          season: "Xuân",
+          sellingPrice: 120000,
+          quantity: 8,
+          supplier: "Popcap",
+        },
+      ];
 
-  <script>
-    let seeds = [
-      {
-        id: 1,
-        name: "Bí đỏ",
-        importPrice: 500,
-        type: "Hàng năm",
-        season: "Xuân",
-        sellingPrice: 10000,
-        quantity: 1,
-        supplier: "Popcap",
-      },
-      {
-        id: 2,
-        name: "Cà chua bi",
-        importPrice: 800,
-        type: "Hàng năm",
-        season: "Hạ",
-        sellingPrice: 15000,
-        quantity: 50,
-        supplier: "GreenFarm",
-      },
-      {
-        id: 3,
-        name: "Hoa Hồng Leo",
-        importPrice: 5000,
-        type: "Lưu niên",
-        season: "Xuân",
-        sellingPrice: 45000,
-        quantity: 4,
-        supplier: "Popcap",
-      },
-      {
-        id: 4,
-        name: "Cải Bó Xôi",
-        importPrice: 300,
-        type: "Hàng năm",
-        season: "Đông",
-        sellingPrice: 8000,
-        quantity: 100,
-        supplier: "VinSeed",
-      },
-      {
-        id: 5,
-        name: "Dưa Hấu",
-        importPrice: 1200,
-        type: "Hàng năm",
-        season: "Hạ",
-        sellingPrice: 25000,
-        quantity: 30,
-        supplier: "GreenFarm",
-      },
-      {
-        id: 6,
-        name: "Oải Hương (Lavender)",
-        importPrice: 7000,
-        type: "Lưu niên",
-        season: "Thu",
-        sellingPrice: 60000,
-        quantity: 5,
-        supplier: "Popcap",
-      },
-      {
-        id: 7,
-        name: "Cà rốt",
-        importPrice: 400,
-        type: "2 năm",
-        season: "Đông",
-        sellingPrice: 12000,
-        quantity: 80,
-        supplier: "VinSeed",
-      },
-      {
-        id: 8,
-        name: "Hướng Dương",
-        importPrice: 1000,
-        type: "Hàng năm",
-        season: "Hè",
-        sellingPrice: 20000,
-        quantity: 15,
-        supplier: "GreenFarm",
-      },
-      {
-        id: 9,
-        name: "Cây Việt Quất",
-        importPrice: 15000,
-        type: "Lưu niên",
-        season: "Xuân",
-        sellingPrice: 120000,
-        quantity: 8,
-        supplier: "Popcap",
-      },
-    ];
+      let choice;
+      // case 1
+      function create(seeds) {
+        // Nhập ID
+        let idAdd;
+        // Kiểm tra ID
+        while (true) {
+          idAdd = prompt("Nhập ID cho sản phẩm bạn muốn thêm");
 
-    let choice ;
-    function create(seeds) {
+          if (idAdd === null) {
+            alert("Đã hủy thao tác");
+            return;
+          }
+          if (idAdd.trim() === "") {
+            alert("ID không được để rỗng");
+            continue;
+          }
+          if (isNaN(idAdd)) {
+            alert("ID phải là số");
+            continue;
+          }
+          idAdd = Number(idAdd);
 
-      // Nhập ID
-      let idAdd ;
-      // Kiểm tra ID 
-      while(true){
-        idAdd = prompt("Nhập ID cho sản phẩm bạn muốn thêm");
+          let idTrung = seeds.some((element) => element.id === Number(idAdd));
 
-        se
-
-        let idTrung = seeds.some(element => element.id === idAdd);
-
-        if (idTrung){
-          alert("ID đã tồn tại");
-          continue;
+          if (idTrung) {
+            alert("ID đã tồn tại");
+            continue;
+          }
+          break;
         }
 
-        if (isNaN(idAdd)){
-          alert("ID phải là số ");
-          continue
+        // Nhập tên
+        let nameAdd;
+        while (true) {
+          nameAdd = prompt("Nhập tên hạt giống muốn thêm");
+
+          if (nameAdd.trim() === "") {
+            alert("ID không được dể trống");
+            continue;
+          }
+          if (nameAdd === null) {
+            alert("Phải thêm tên");
+            continue;
+          }
+          break;
         }
 
-        if (idAdd === ""){
-          alert("Không được để trống ID");
-          continue;
-        }
-        break ;
+        // Giá Nhập
+        let importPriceAdd;
+        while (true) {
+          importPriceAdd = prompt("Nhập giá tiền");
 
+          if (importPriceAdd === null) {
+            alert("Bắt buộc phải nhập giá tiền");
+            continue;
+          }
+
+          if (importPriceAdd.trim() === "") {
+            alert("Giá nhập không được để trống");
+            continue;
+          }
+
+          importPriceAdd = Number(importPriceAdd);
+
+          if (isNaN(importPriceAdd)) {
+            alert("Giá tiền phải nhập số nguyên dương");
+            continue;
+          }
+
+          if (!Number.isInteger(importPriceAdd) || importPriceAdd <= 0) {
+            alert("Giá tiền nhập vào phải là số nguyên dương");
+            continue;
+          }
+          break;
+        }
+
+        // Nhập loại cây
+        let typeAdd;
+        let validType = ["lưu niên", "2 năm", "hàng năm"];
+        while (true) {
+          typeAdd = prompt("Nhập loại cây : Lưu niên / hàng năm / 2 năm");
+
+          if (typeAdd === null) {
+            alert("Bắt buộc phải nhập loại cây");
+            continue;
+          }
+          if (typeAdd.trim() === "") {
+            alert("Không được để trống");
+            continue;
+          }
+
+          if (!validType.includes(typeAdd.toLowerCase())) {
+            alert("Phải nhập 1 trong 3 loại ưu tiên");
+            continue;
+          }
+          break;
+        }
+
+        // Nhập thời vụ
+
+        let seasonAdd;
+        let validSeason = ["xuân", "hạ", "thu", "đông"];
+
+        while (true) {
+          seasonAdd = prompt("Nhập thời vụ xuân / hạ / thu / đông");
+
+          if (seasonAdd === null) {
+            alert("Không được hủy thao tác");
+            continue;
+          }
+          if (seasonAdd.trim() === "") {
+            alert("Không được để trống");
+            continue;
+          }
+          if (!validSeason.includes(seasonAdd.toLowerCase())) {
+            alert("Phải nhập thời vụ xuân / hạ / thu / đông");
+            continue;
+          }
+          break;
+        }
+
+        // Giá bán
+
+        let sellingPriceAdd;
+        while (true) {
+          sellingPriceAdd = prompt("Nhập giá bán là số nguyên dương");
+
+          if (sellingPriceAdd === null) {
+            alert("Không được hủy thao tác");
+            continue;
+          }
+          if (sellingPriceAdd.trim() === "") {
+            alert("Không được để trống");
+            continue;
+          }
+
+          sellingPriceAdd = Number(sellingPriceAdd);
+
+          if (isNaN(sellingPriceAdd)) {
+            alert("Phải nhập số");
+            continue;
+          }
+          if (!Number.isInteger(sellingPriceAdd) || sellingPriceAdd <= 0) {
+            alert("Giá bán phải là số nguyên dương");
+            continue;
+          }
+          break;
+        }
+
+        // Nhập số lượng
+        let quantityAdd;
+        while (true) {
+          quantityAdd = prompt("Nhập số lượng (Phải là số nguyên dương)");
+
+          if (quantityAdd === null) {
+            alert("Không được hủy thao tác");
+            continue;
+          }
+          if (quantityAdd.trim() === "") {
+            alert("Không được để trống");
+            continue;
+          }
+          quantityAdd = Number(quantityAdd);
+          if (isNaN(quantityAdd)) {
+            alert("Phải nhập số nguyên dương");
+            continue;
+          }
+          if (!Number.isInteger(quantityAdd) || quantityAdd <= 0) {
+            alert("Phải nhập số nguyên dương");
+            continue;
+          }
+          break;
+        }
+
+        // Nhập nhà cung cấp
+        let supplierAdd;
+        while (true) {
+          supplierAdd = prompt("Nhập nhà cung cấp");
+
+          if (supplierAdd === null) {
+            alert("Không được hủy thao tác");
+            continue;
+          }
+          if (supplierAdd.trim() === "") {
+            alert("Nhà cung cấp không được dể trống");
+            continue;
+          }
+
+          break;
+        }
+
+        let seedsAdd = {
+          id: idAdd,
+          name: nameAdd,
+          importPrice: importPriceAdd,
+          type: typeAdd,
+          season: seasonAdd,
+          sellingPrice: sellingPriceAdd,
+          quantity: quantityAdd,
+          supplier: supplierAdd,
+        };
+
+        seeds.push(seedsAdd);
+      }
+      // case 2
+      function display(seeds) {
+        let choice;
+
+        choice = +prompt(`Chọn cách xắp xếp giá bán
+      1 . Tăng dần 
+      2 . Giảm dần`);
+
+        switch (choice) {
+          case 1:
+            let tangDan = seeds.sort((a, b) => a.sellingPrice - b.sellingPrice);
+            console.table(tangDan);
+            break;
+          case 2:
+            let giamDan = seeds.sort((a, b) => b.sellingPrice - a.sellingPrice);
+            console.table(giamDan);
+            break;
+
+          default:
+            alert("phải nhập 1 hoặc 2");
+            break;
+        }
+      }
+
+      // case 3
+      function higherSearch(seeds) {
+        let choice = +prompt(`=== CHỌN PHƯƠNG PHÁP TIỀM KIẾM ===
+        1 . Theo tên 
+        2. Tìm kiếm theo mùa vụ
+        3. Tìm kiếm theo khoảng giá nhập
+        4. Tìm kiếm theo khoảng giá bản
+        0. Thoát`);
+
+        // Tìm kiếm theo tên
+        function theoTen(seeds) {
+          let searchName;
+
+          while (true) {
+            searchName = prompt("Nhập tên cần tìm kiếm");
+            if (searchName === null) {
+              alert("Đã hủy thao tác");
+              return;
+            }
+            if (searchName.trim() === "") {
+              alert("Không được để trống");
+              continue;
+            }
+            break;
+          }
+
+          let searchNameCon = seeds.find(
+            (element) =>
+              element.name.toLowerCase() === searchName.toLowerCase(),
+          );
+
+          if (searchNameCon === undefined) {
+            alert("Không tìm thấy đối tác cung ướng này !");
+          } else {
+            console.table(searchNameCon);
+          }
+        }
+        // Tìm kiếm theo mùa vụ
+        function theoMuaVu(seeds) {
+          let searchMuaVu;
+
+          while (true) {
+            searchMuaVu = prompt("Nhập mùa vụ cần tìm kiếm");
+            if (searchMuaVu === null) {
+              alert("Đã hủy thao tác");
+              break;
+            }
+            if (searchMuaVu.trim() === "") {
+              alert("Không được để trống");
+              continue;
+            }
+            break;
+          }
+
+          let searchMuaVuCon = seeds.filter(
+            (element) =>
+              element.season.toLowerCase() === searchMuaVu.toLowerCase(),
+          );
+
+          if (searchMuaVuCon.length === 0) {
+            alert("Không tìm thấy mùa vụ tương ứng !");
+          } else {
+            console.table(searchMuaVuCon);
+          }
+        }
+        // Tìm kiếm theo khoàng giá nhập
+        function findbyImportPrice(seeds) {
+          let startImportPrice;
+
+          while (true) {
+            startImportPrice = prompt("Nhập giá bắt đầu");
+
+            if (startImportPrice === null) {
+              alert("Đã hủy thao tác nhập");
+              break;
+            }
+            if (startImportPrice === "") {
+              alert("Không được nhập rỗng");
+              continue;
+            }
+
+            if (isNaN(startImportPrice)) {
+              alert("Phải nhập số");
+              continue;
+            }
+            startImportPrice = Number(startImportPrice);
+            if (!Number.isInteger(startImportPrice) || startImportPrice < 0) {
+              alert("Phải nhập số nguyên dương");
+              continue;
+            }
+            break;
+          }
+
+          let endImportPrice;
+
+          while (true) {
+            endImportPrice = prompt("Nhập giá kết thúc");
+
+            if (endImportPrice === null) {
+              alert("Đã hủy thao tác nhập");
+              break;
+            }
+            if (endImportPrice.trim() === "") {
+              alert("Không được nhập rỗng");
+              continue;
+            }
+
+            if (isNaN(endImportPrice)) {
+              alert("Phải nhập số");
+              continue;
+            }
+            endImportPrice = Number(endImportPrice);
+            if (!Number.isInteger(endImportPrice) || endImportPrice < 0) {
+              alert("Phải nhập số nguyên dương");
+              continue;
+            }
+            if (startImportPrice > endImportPrice) {
+              alert("Giá kết thúc >= giá khởi điểm");
+              continue;
+            }
+            break;
+          }
+
+          let khoangGia = seeds.filter(
+            (element) =>
+              element.importPrice >= startImportPrice &&
+              element.importPrice <= endImportPrice,
+          );
+
+          if (khoangGia.length === 0) {
+            alert("Không tìm thấy khoảng giá tương ứng");
+          } else {
+            console.table(khoangGia);
+          }
+        }
+
+        // Tìm kiếm theo khoảng giá bán
+        function findbySellingPrice(seeds) {
+          let startSellingPrice;
+
+          while (true) {
+            startSellingPrice = prompt("Nhập giá bắt đầu");
+
+            if (startSellingPrice === null) {
+              alert("Đã hủy thao tác nhập");
+              return;
+            }
+            if (startSellingPrice.trim() === "") {
+              alert("Không được nhập rỗng");
+              continue;
+            }
+
+            if (isNaN(startSellingPrice)) {
+              alert("Phải nhập số");
+              continue;
+            }
+            startSellingPrice = Number(startSellingPrice);
+            if (!Number.isInteger(startSellingPrice) || startSellingPrice < 0) {
+              alert("Phải nhập số nguyên dương");
+              continue;
+            }
+            break;
+          }
+
+          let endSellingPrice;
+
+          while (true) {
+            endSellingPrice = prompt("Nhập giá kết thúc");
+
+            if (endSellingPrice === null) {
+              alert("Đã hủy thao tác nhập");
+              return;
+            }
+            if (endSellingPrice === "") {
+              alert("Không được nhập rỗng");
+              continue;
+            }
+
+            if (isNaN(endSellingPrice)) {
+              alert("Phải nhập số");
+              continue;
+            }
+            endSellingPrice = Number(endSellingPrice);
+            if (!Number.isInteger(endSellingPrice) || endSellingPrice < 0) {
+              alert("Phải nhập số nguyên dương");
+              continue;
+            }
+            if (startSellingPrice > endSellingPrice) {
+              alert("Giá kết thúc >= giá khởi điểm");
+              continue;
+            }
+            break;
+          }
+
+          let khoangGia = seeds.filter(
+            (element) =>
+              element.importPrice >= startImportPrice &&
+              element.importPrice <= endSellingPrice,
+          );
+
+          if (khoangGia.length === 0) {
+            alert("Không tìm thấy khoảng giá tương ứng");
+          } else {
+            console.table(khoangGia);
+          }
+        }
+
+        switch (choice) {
+          case 1:
+            theoTen(seeds);
+            break;
+          case 2:
+            theoMuaVu(seeds);
+            break;
+          case 3:
+            findbyImportPrice(seeds);
+            break;
+          case 4:
+            findbySellingPrice(seeds);
+            break;
+          case 0:
+            alert("Thoát");
+            break;
+          default:
+            alert("Lựa chọn không hợp lệ");
+            break;
+        }
+      }
+
+      // case 4
+      function updateSupplier(seeds) {
+        let nameUpdateSupplier;
+        while (true) {
+          nameUpdateSupplier = prompt("Nhập tên nhà cung cấp cần thay đổi");
+
+          if (nameUpdateSupplier === null) {
+            alert("Đã hủy thao tác");
+            return;
+          }
+          if (nameUpdateSupplier.trim() === "") {
+            alert("Tên không được dể trống");
+            continue;
+          }
+          break;
+        }
+
+        let nameUpdateSupplierEnd;
+        while (true) {
+          nameUpdateSupplierEnd = prompt("Nhập tên nhà cung cấp mới");
+
+          if (nameUpdateSupplierEnd === null) {
+            alert("Đã hủy thao tác");
+            return;
+          }
+          if (nameUpdateSupplierEnd.trim() === "") {
+            alert("Tên không được dể trống");
+            continue;
+          }
+          break;
+        }
+
+        let nameSupplier = seeds.filter(
+          (element) =>
+            element.supplier.toLowerCase() === nameUpdateSupplier.toLowerCase(),
+        );
+
+        if (nameSupplier.length === 0) {
+          alert("Không tìm thấy nhà cung ứng");
+        } else {
+          let nameSupplierNew = seeds.map((element) => {
+            if (
+              element.supplier.toLowerCase() ===
+              nameUpdateSupplier.toLowerCase()
+            ) {
+              element.supplier = nameUpdateSupplierEnd;
+            }
+          });
+        }
+      }
+
+      // case 5
+      function updateSeeds(seeds) {
+        let choice = +prompt(`=== Cập nhật & Xóa ===
+      1 . Cập nhật 
+      2 . Xóa`);
+
+        // Cập nhật thông tin (Giá bán, loại cây, mùa vụ, số lượng) dựa theo tên hạt giống
+        function capNhat(seeds) {
+          let searchName;
+
+          while (true) {
+            searchName = prompt("Nhập tên cần tìm kiếm");
+            if (searchName === null) {
+              alert("Đã hủy thao tác");
+              return;
+            }
+            if (searchName.trim() === "") {
+              alert("Không được để trống");
+              continue;
+            }
+            break;
+          }
+
+          let searchNameCon = seeds.find(
+            (element) =>
+              element.name.toLowerCase() === searchName.toLowerCase(),
+          );
+
+          if (searchNameCon === undefined) {
+            alert("Không tìm thấy tên !!");
+          } else {
+            // Cập nhất giá bán
+            let updateSellingPrice;
+            while (true) {
+              updateSellingPrice = prompt(
+                "Cập nhật giá bán là số nguyên dương",
+              );
+
+              if (updateSellingPrice === null) {
+                alert("Không được hủy thao tác");
+                continue;
+              }
+              if (updateSellingPrice.trim() === "") {
+                alert("Không được để trống");
+                continue;
+              }
+
+              updateSellingPrice = Number(updateSellingPrice);
+
+              if (isNaN(updateSellingPrice)) {
+                alert("Phải nhập số");
+                continue;
+              }
+              if (
+                !Number.isInteger(updateSellingPrice) ||
+                updateSellingPrice <= 0
+              ) {
+                alert("Giá bán phải là số nguyên dương");
+                continue;
+              }
+              break;
+            }
+
+            // Cập nhật loại cây
+            let updateTypeAdd;
+            let validType = ["lưu niên", "2 năm", "hàng năm"];
+            while (true) {
+              updateTypeAdd = prompt(
+                "Cập nhật loại cây : Lưu niên / hàng năm / 2 năm",
+              );
+
+              if (updateTypeAdd === null) {
+                alert("Bắt buộc phải nhập loại cây");
+                continue;
+              }
+              if (updateTypeAdd.trim() === "") {
+                alert("Không được để trống");
+                continue;
+              }
+
+              if (!validType.includes(updateTypeAdd.toLowerCase())) {
+                alert("Phải nhập 1 trong 3 loại ưu tiên");
+                continue;
+              }
+              break;
+            }
+
+            // Cập nhật mùa vụ
+            let seasonAdd;
+            let validSeason = ["xuân", "hạ", "thu", "đông"];
+
+            while (true) {
+              seasonAdd = prompt("Nhập thời vụ xuân / hạ / thu / đông");
+
+              if (seasonAdd === null) {
+                alert("Không được hủy thao tác");
+                continue;
+              }
+              if (seasonAdd.trim() === "") {
+                alert("Không được để trống");
+                continue;
+              }
+              if (!validSeason.includes(seasonAdd.toLowerCase())) {
+                alert("Phải nhập thời vụ xuân / hạ / thu / đông");
+                continue;
+              }
+              break;
+            }
+
+            // Cập nhật số lượng
+            let quantityAdd;
+            while (true) {
+              quantityAdd = prompt("Nhập số lượng (Phải là số nguyên dương)");
+
+              if (quantityAdd === null) {
+                alert("Không được hủy thao tác");
+                continue;
+              }
+              if (quantityAdd.trim() === "") {
+                alert("Không được để trống");
+                continue;
+              }
+              quantityAdd = Number(quantityAdd);
+              if (isNaN(quantityAdd)) {
+                alert("Phải nhập số nguyên dương");
+                continue;
+              }
+              if (!Number.isInteger(quantityAdd) || quantityAdd <= 0) {
+                alert("Phải nhập số nguyên dương");
+                continue;
+              }
+              break;
+            }
+
+            searchNameCon.sellingPrice = updateSellingPrice;
+            searchNameCon.type = updateTypeAdd;
+            searchNameCon.season = seasonAdd;
+            searchNameCon.quantity = quantityAdd;
+
+            alert("Cập nhật thành công");
+          }
+        }
+
+        // Xóa
+        function xoa(seeds) {
+          let searchName;
+
+          while (true) {
+            searchName = prompt("Nhập tên cần xóa");
+            if (searchName === null) {
+              alert("Đã hủy thao tác");
+              return;
+            }
+            if (searchName.trim() === "") {
+              alert("Không được để trống");
+              continue;
+            }
+            break;
+          }
+
+          let searchNameCon = seeds.find(
+            (element) =>
+              element.name.toLowerCase() === searchName.toLowerCase(),
+          );
+
+          if (searchNameCon === undefined) {
+            alert("Không tìm thấy tên !!");
+            return seeds;
+          } else {
+            let newseeds = seeds.filter(
+              (element) =>
+                element.name.toLowerCase() !== searchName.toLowerCase(),
+            );
+            alert("Đã xóa thành công");
+            return newseeds;
+          }
+        }
+        switch (choice) {
+          case 1:
+            capNhat(seeds);
+            return seeds;
+            break;
+          case 2:
+            return xoa(seeds);
+            break;
+          default:
+            alert("phải nhập 1 hoặc 2");
+            break;
+        }
+      }
+
+      // case 6
+      function exportGoods(seeds) {
+        let searchName = prompt("Nhập tên hạt giống cần bán").toLowerCase();
+        let quantityExport = +prompt("Nhập số kg muốn xuất");
+
+        let nameExport = seeds.find(element => element.name.toLowerCase() === searchName);
+
+        if (quantityExport > nameExport.quantity) {
+          alert("Số dư tồn tại trong kho không đủ");
+          return ;
+        }
+
+        let monney = quantityExport * nameExport.sellingPrice ;
+        alert("Xuất kho thành công");
+        console.log(`Tổng hóa đơn của bạn là ${monney}`);
         
       }
-    
-    }
 
-    do{
-      choice = +prompt(`-----Lựa chọn chức năng-----
+      // case 7
+      function loiNhuan(seeds) {
+        seeds.forEach(element => {
+          let loiNhuanTungHat = (element.sellingPrice - element.importPrice) * element.quantity ;
+           return console.log(loiNhuanTungHat);
+        });
+      
+        
+      }
+      do {
+        choice = +prompt(`-----Lựa chọn chức năng-----
         1. Thêm hạt giống:
         2. Hiển thị & Sắp xếp:
         3. Tìm kiếm nâng cao:
@@ -147,55 +838,52 @@
         7. Báo cáo tài chính (Lợi nhuận):
         8. Thống kê cảnh báo kho
         9. Phân loại theo Mùa
-        0. Thoát`
-      );
-        
-      switch (choice) {
-        case 1:
-          create(seeds);
-          break;
-      
-        case 2:
-          
-          break;
-      
-        case 3:
-          
-          break;
-      
-        case 4:
-          
-          break;
-      
-        case 5:
-          
-          break;
-      
-        case 6:
-          
-          break;
-      
-        case 7:
-          
-          break;
-      
-        case 8:
-          
-          break;
-      
-        case 9:
-          
-          break;
-      
-        case 0:
-          alert("Thoát");
-          break;
-      
-        default:
-          alert("Lựa chọn không hợp lê");
-          break;
-      }
-    }while(choice !== 0);
-  </script>
-</body>
+        0. Thoát`);
+
+        switch (choice) {
+          case 1:
+            create(seeds);
+            break;
+
+          case 2:
+            display(seeds);
+            break;
+
+          case 3:
+            higherSearch(seeds);
+            break;
+
+          case 4:
+            updateSupplier(seeds);
+            break;
+
+          case 5:
+            seeds = updateSeeds(seeds);
+            break;
+
+          case 6:
+            exportGoods(seeds);
+            break;
+
+          case 7:
+            loiNhuan(seeds);
+            break;
+
+          case 8:
+            break;
+
+          case 9:
+            break;
+
+          case 0:
+            alert("Thoát");
+            break;
+
+          default:
+            alert("Lựa chọn không hợp lê");
+            break;
+        }
+      } while (choice !== 0);
+    </script>
+  </body>
 </html>
