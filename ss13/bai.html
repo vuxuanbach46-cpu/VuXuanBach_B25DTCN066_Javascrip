@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Danh Sách Sản Phẩm Trợ Tết</h1>
+    <ul id="product-list">
+      <!-- Danh sách các sản phẩm -->
+    </ul>
+
+    <form id="product-form">
+      <input type="text" id="product-name" placeholder="Ten san phẩm" />
+      <input type="number" id="product-price" placeholder="Giá (VND)" />
+      <button type="submit">Them Sản Phẩm</button>
+    </form>
+
+    <script>
+      const products = [
+        { id: 1, name: "Bánh Chưng", price: 150000 },
+        { id: 2, name: "Giò Lua", price: 180000 },
+        { id: 3, name: "Cành Đào", price: 500000 },
+        { id: 4, name: "Mứt Tết", price: 120000 },
+        { id: 5, name: "Bao Li Xi", price: 25000 },
+        { id: 6, name: "Dua Hau Tet", price: 80000 },
+      ];
+
+      // let productList = document.getElementById("product-list");
+
+      // products.forEach((element) => {
+      //   // let product = document.createElement(`div`);
+
+      //   let productItem = `
+      //   <div class="product">
+      //     <p> Tên sản phẩm ${element.name}</p>
+      //     <p> Giá tiền ${element.price}</p>
+      //   </div> `;
+
+      //   productList.innerHTML += productItem;
+      // });
+
+
+      let productList = document.getElementById("product-list");
+
+      products.forEach(element => {
+
+        let productItem = document.createElement("div");
+        productItem.classList.add("product");
+
+        let valueName = document.createElement("p");
+        valueName.innerHTML = element.name ;
+        productItem.appendChild(valueName);
+
+        let valuePrice = document.createElement("p");
+        valuePrice.innerHTML = element.price ;
+        productItem.appendChild(valuePrice);
+
+        productList.appendChild(productItem);
+
+      });
+
+     
+    </script>
+  </body>
+</html>

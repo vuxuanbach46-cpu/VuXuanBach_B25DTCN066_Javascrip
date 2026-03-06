@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+
+
+
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    #form {
+      padding: 20px;
+      text-align: center;
+      display: inline-block;
+    }
+
+    label{
+      margin-right: 10px;
+    }
+    .mau {
+      background-color: aqua;
+    }
+
+  </style>
+
+
+
+
+  <body>
+
+
+
+    <form id ="form" action="">
+      <label for="fullname">Họ và tên</label>
+      <input id = "fullname" type="text" />
+      <br />
+      <input type="submit" value="Submit" class="submit-btn"/>
+    </form>
+
+
+
+
+    <script>
+      // console.log(document.getElementsByName(`label`)[0]);
+      // let inputElement = document.getElementById(`fullname`);
+      // console.log(inputElement);
+      // let submitbtn = document.getElementsByClassName(`submit-btn`);
+      // console.log(submitbtn[0]);
+      
+      // Lấy theo bộ chọn
+      // document.querySelector(".form");
+
+      // innerHTML
+      let inputElement = document.getElementById(`form`);
+      inputElement.innerHTML += "<h1> Đây là nội dung đc thêm từ JS </h1>"
+      // console.log(inputElement.innerHTML);
+      // textContent Lấy toàn bộ text có trên file HTML
+      // console.log(inputElement.textContent);
+      // innerText CHỉ lấy text xuất hiện trên giao diện 
+      // console.log(inputElement.innerText);
+      
+      // Lấy thông tin
+      console.log(inputElement.classList.add("mau"));
+      inputElement.classList.remove("mau");
+      inputElement.classList.toggle("mau");
+      
+
+    </script>
+  </body>
+</html>

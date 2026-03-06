@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Danh Sách Sản Phẩm Trợ Tết</h1>
+    <ul id="product-list">
+      <!-- Danh sách các sản phẩm -->
+    </ul>
+
+    <form id="product-form">
+      <input type="text" id="product-name" placeholder="Ten san phẩm" />
+      <input type="number" id="product-price" placeholder="Giá (VND)" />
+      <button type="submit">Them Sản Phẩm</button>
+      <input type="text" id="search-input" placeholder="Tìm sản phẩm ... " />
+    </form>
+    <script>
+      const products = [
+        { id: 1, name: "Bánh Chưng", price: 150000 },
+        { id: 2, name: "Giò Lua", price: 180000 },
+        { id: 3, name: "Cành Đào", price: 500000 },
+        { id: 4, name: "Mứt Tết", price: 120000 },
+        { id: 5, name: "Bao Li Xi", price: 25000 },
+        { id: 6, name: "Dua Hau Tet", price: 80000 },
+      ];
+
+      let valueForm = document.getElementById("product-form");
+      let valueName = document.getElementById("product-name");
+      let valuePrice = document.getElementById("product-price");
+      let productList = document.getElementById("product-list");
+      let search = document.getElementById("search-input");
+
+      valueForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let name = valueName.value;
+        let price = valuePrice.value;
+
+        let newProduct = {
+          name: name,
+          price: price,
+        };
+
+        let creatProduct = `
+          <div class="product">
+            <p>Tên sản phẩm : ${name}</p>
+            <p class="product-price">Giá sản phẩm : ${price}</p>
+            <button class="delete-btn">Xóa</button>
+            <button class="edit-price-btn">Sửa giá</button>
+          </div>`;
+
+        productList.innerHTML += creatProduct;
+
+        valueName.value = "";
+        valuePrice.value = "";
+      });
+
+      productList.addEventListener("click", (event) => {
+        if (event.target.classList.contains("delete-btn")) {
+          let check = confirm("Bạn có muốn xóa không");
+
+          if (check) {
+            event.target.parentElement.remove();
+          }
+        }
+      });
+      
+      productList.addEventListener("click", function (e) {
+        if (e.target.classList.contains("edit-price-btn")) {
+          let newPrice = prompt("Nhập giá mới (VND):");
+
+          let productDiv = e.target.parentElement;
+
+          let priceElement = productDiv.querySelector(".product-price");
+
+          priceElement.textContent =
+            "Giá sản phẩm : " + Number(newPrice).toLocaleString() + " VND";
+        }
+      });
+    
+      productList.addEventListener("click" , (event) => {
+        
+      })
+    </script>
+  </body>
+</html>

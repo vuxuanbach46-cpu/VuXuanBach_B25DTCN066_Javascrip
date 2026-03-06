@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      input {
+        margin-bottom: 20px;
+      }
+    </style>
+
+    <h1>Đăng nhập</h1>
+    <form id="form" action="">
+      <label for="email">Email</label>
+      <input type="email" id="email" />
+      <br />
+      <label for="password">Mật khẩu :</label>
+      <input type="password" id="password" />
+      <br />
+      <button id="gui">Đăng nhập</button>
+    </form>
+
+    <script>
+      let button = document.getElementById("gui");
+
+      button.addEventListener("click", function name(params) {
+        event.preventDefault();
+        alert("Gửi thành công");
+
+        let valueEmail = getElementById("email")
+        let valuePassword = getElementById("password") ;
+
+        let user = {
+          email: valueEmail,
+          password: valuePassword,
+        };
+        console.log(user);
+      });
+    </script>
+  </body>
+</html>
