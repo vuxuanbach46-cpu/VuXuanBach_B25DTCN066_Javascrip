@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <link rel="stylesheet" href="./kiemtra.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>📝 Todo List</h1>
+
+      <div class="input-row">
+        <input type="text" id="taskInput" placeholder="Nhập công việc..." />
+        <button id="gui">Thêm</button>
+      </div>
+
+      <ul id="taskList">
+        <li>Quét nhà</li>
+        <li>Giặt quần áo</li>
+      </ul>
+    </div>
+    
+ 
+
+
+    <script>
+      let works = [
+        {id : 1 , name :"quét nhà" },
+        {id : 2 , name :"Lau nhà"}
+      ];
+      
+      let domForm = document.getElementById("input-row");
+      let taskListA = document.getElementById("taskList");
+      let button = document.getElementById("gui")
+
+      // Hiển thị
+      function reder(works) {
+        let domLi = document.createElement("li");
+        domLi.innerHTML = `<li>${works.name}</li>`;
+        taskListA.appendChild(domLi);
+      }
+
+        works.forEach(element => {
+          reder(element);
+        });
+
+      // Thêm mới 
+
+      button.addEventListener("click" , (event) => {
+
+
+        let domInput = document.getElementById("taskInput");
+        let valueInput = domInput.value ;
+        if (valueInput === ""){
+          alert("Vui lòng nhập tên công việc");
+          return ;
+        }
+
+        let newWork = {
+          name : valueInput
+        };
+
+        let domLi = document.createElement("li");
+        domLi.innerHTML = `
+        <p>${newWork.name}</p>`;
+
+        taskListA.appendChild(domLi);
+        domInput.value = "";
+
+      });
+
+      
+    </script>
+  </body>
+</html>

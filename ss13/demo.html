@@ -5,74 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-
-
-
-
-  <style>
-    *{
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    #form {
-      padding: 20px;
-      text-align: center;
-      display: inline-block;
-    }
-
-    label{
-      margin-right: 10px;
-    }
-    .mau {
-      background-color: aqua;
-    }
-
-  </style>
-
-
-
-
   <body>
-
-
-
-    <form id ="form" action="">
-      <label for="fullname">Họ và tên</label>
-      <input id = "fullname" type="text" />
-      <br />
-      <input type="submit" value="Submit" class="submit-btn"/>
+    <h1>Danh Sách Sản Phẩm Chợ Tết</h1>
+    <ul id="product-list"></ul>
+    <form id="product-form">
+      <input type="text" id="product-name" placeholder="Tên sản phẩm" />
+      <input type="number" id="product-price" placeholder="Giá (VND)" />
+      <button onclick="addProduct(event)" type="submit">Thêm Sản Phẩm</button>
     </form>
-
-
-
-
     <script>
-      // console.log(document.getElementsByName(`label`)[0]);
-      // let inputElement = document.getElementById(`fullname`);
-      // console.log(inputElement);
-      // let submitbtn = document.getElementsByClassName(`submit-btn`);
-      // console.log(submitbtn[0]);
-      
-      // Lấy theo bộ chọn
-      // document.querySelector(".form");
+      let products = [
+        { id: 1, name: "Bánh Chưng", price: 150000 },
+        { id: 2, name: "Giò Lua", price: 180000 },
+        { id: 3, name: "Cành Đào", price: 500000 },
+        { id: 4, name: "Mứt Tết", price: 120000 },
+        { id: 5, name: "Bao Lì Xì", price: 25000 },
+        { id: 6, name: "Dưa Hấu Tết", price: 80000 },
+      ];
 
-      // innerHTML
-      let inputElement = document.getElementById(`form`);
-      inputElement.innerHTML += "<h1> Đây là nội dung đc thêm từ JS </h1>"
-      // console.log(inputElement.innerHTML);
-      // textContent Lấy toàn bộ text có trên file HTML
-      // console.log(inputElement.textContent);
-      // innerText CHỉ lấy text xuất hiện trên giao diện 
-      // console.log(inputElement.innerText);
+      let product = JSON.parse(localStorage.getItem("product")) || [];
+      // localStorage.setItem("product", JSON.stringify(products));
+      // localStorage.removeItem("") ;
+      // localStorage.clear("");
+
+      // Hiển thị
+      function renderProduct() {
+        let productList = document.getElementById("product-list");
+        productList.innerHTML = "";
+        console.log(productList);
+
+        products.forEach((element) => {
+          productList.innerHTML += ` <li>
+        <div class="product">
+          <p>Tên sản phẩm : ${element.name}</p>
+          <p>Giá sản phẩm : ${element.price}</p>
+          <button onclick="deleteProduct(${element.id})">Xóa</button>
+          <button>Sửa</button>
+        </div>
+      </li>`;
+        });
+      }
+      renderProduct();
+      //  Thêm
+      function addProduct(event) {
+        event.preventDefault();
+
+        let valueName = document.getElementById("product-name");
+        let valueNameElement = valueName.value;
+        let valuePrice = document.getElementById("product-price");
+        let valuePriceElement = +valuePrice.value;
+
+        let newProuct = {
+          id: products.length != 0 ? [products.length - 1].id + 1 : 1,
+          name: valueNameElement,
+          price: valuePriceElement,
+        };
+
+        products.push(newProuct);
+        localStorage.setItem("product", JSON.stringify(products));
+        renderProduct();
+      }
+
+      // Xóa
+      function deleteProduct(id) {
+        console.log("Xóa sản phẩm", id);
+        products = products.filter((element) => element.id !== id);
+        localStorage.setItem("product", JSON.stringify(products));
+        renderProduct();
+      }
       
-      // Lấy thông tin
-      console.log(inputElement.classList.add("mau"));
-      inputElement.classList.remove("mau");
-      inputElement.classList.toggle("mau");
+      // sửa
       
 
+      
     </script>
   </body>
 </html>

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      body {
+        font-family: Arial;
+        background: #f4f4f4;
+      }
+
+      .container {
+        width: 420px;
+        margin: 50px auto;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .header {
+        background: #d62828;
+        color: white;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .header p {
+        margin: 5px 0 0 0;
+        font-size: 14px;
+      }
+
+      ul {
+        list-style: none;
+        padding: 20px;
+        margin: 0;
+      }
+
+      li {
+        background: #f1ead2;
+        padding: 12px;
+        margin-bottom: 10px;
+        border-left: 5px solid orange;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      li:hover {
+        background: #ece3c0;
+      }
+
+      .done {
+        background: #d4edda;
+        text-decoration: line-through;
+        border-left: 5px solid green;
+      }
+
+      .footer {
+        text-align: center;
+        font-size: 12px;
+        color: gray;
+        padding: 10px;
+      }
+    </style>
+
+    <div class="container">
+      <div class="header">
+        <h2>Công việc chuẩn bị Tết</h2>
+        <p>Click để đánh dấu hoàn thành</p>
+      </div>
+
+      <ul id="todo-list"></ul>
+
+      <div class="footer">
+        Trạng thái được lưu tự động vào localStorage - Refresh để kiểm tra
+      </div>
+    </div>
+
+    <script>
+      let initialTodos = [
+        { id: 1, task: "Mua bánh chưng", done: false },
+        { id: 2, task: "Dọn nhà đón Tết", done: false },
+        { id: 3, task: "Gói bánh chưng", done: false },
+        { id: 4, task: "Trang trí nhà cửa bằng hoa mai, hoa đào", done: true },
+        { id: 5, task: "Mua phong bao lì xì", done: false },
+        { id: 6, task: "Chuẩn bị mâm ngũ quả", done: false },
+      ];
+
+      // Đọc dữ liệu từ localStorage
+      let todos = JSON.parse(localStorage.getItem("myTodos"));
+
+      if (todos === null) {
+        todos = initialTodos;
+        localStorage.setItem("myTodos", JSON.stringify(todos));
+      }
+
+      // Hiển thị danh sách công việc:
+      function renderTodos() {
+        let danhSach = document.getElementById("todo-list");
+        danhSach.innerHTML = "";
+        todos.forEach((element) => {
+          let li = document.createElement("li");
+          li.innerHTML = `<p>${element.task}</p>`;
+          danhSach.appendChild(li);
+
+          if (element.done === true){
+            li.classList.add("done");
+          }
+
+          li.onclick = function () {
+            element.done = !element.done ;
+            localStorage.setItem("myTodos" , JSON.stringify(todos));
+            renderTodos();
+          };
+        });
+      }
+      renderTodos();
+    </script>
+  </body>
+</html>

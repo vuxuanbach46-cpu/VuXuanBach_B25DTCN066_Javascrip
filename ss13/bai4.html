@@ -16,6 +16,9 @@
       <input type="number" id="product-price" placeholder="Giá (VND)" />
       <button type="submit">Them Sản Phẩm</button>
       <input type="text" id="search-input" placeholder="Tìm sản phẩm ... " />
+
+      <h2>Kết quả tìm kiếm</h2>
+      <ul id="search-result"></ul>
     </form>
     <script>
       const products = [
@@ -67,7 +70,7 @@
           }
         }
       });
-      
+
       productList.addEventListener("click", function (e) {
         if (e.target.classList.contains("edit-price-btn")) {
           let newPrice = prompt("Nhập giá mới (VND):");
@@ -80,10 +83,29 @@
             "Giá sản phẩm : " + Number(newPrice).toLocaleString() + " VND";
         }
       });
-    
-      productList.addEventListener("click" , (event) => {
-        
-      })
+
+      let searchResult = document.getElementById("search-result");
+
+      search.addEventListener("input", function () {
+        let keyword = search.value.toLowerCase();
+
+        search.innerHTML = "";
+
+        let products = document.querySelectorAll(".product");
+
+        products.forEach(function (product) {
+          let name = product.querySelector("p").textContent.toLowerCase();
+          let price = product.querySelector(".product-price").textContent;
+
+          if (name.includes(keyword) && keyword !== "") {
+            let li = document.createElement("li");
+
+            li.textContent = name + " - " + price;
+
+            searchResult.appendChild(li);
+          }
+        });
+      });
     </script>
   </body>
 </html>

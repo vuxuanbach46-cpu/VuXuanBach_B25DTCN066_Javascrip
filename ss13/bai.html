@@ -3,65 +3,122 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Danh sách sản phẩm</title>
   </head>
+
   <body>
     <h1>Danh Sách Sản Phẩm Trợ Tết</h1>
-    <ul id="product-list">
-      <!-- Danh sách các sản phẩm -->
-    </ul>
+
+    <input type="text" id="search-input" placeholder="Tìm sản phẩm..." />
+
+    <ul id="product-list"></ul>
 
     <form id="product-form">
-      <input type="text" id="product-name" placeholder="Ten san phẩm" />
+      <input type="text" id="product-name" placeholder="Tên sản phẩm" />
       <input type="number" id="product-price" placeholder="Giá (VND)" />
-      <button type="submit">Them Sản Phẩm</button>
+      <button type="submit">Thêm Sản Phẩm</button>
     </form>
 
     <script>
       const products = [
         { id: 1, name: "Bánh Chưng", price: 150000 },
-        { id: 2, name: "Giò Lua", price: 180000 },
+        { id: 2, name: "Giò Lụa", price: 180000 },
         { id: 3, name: "Cành Đào", price: 500000 },
         { id: 4, name: "Mứt Tết", price: 120000 },
-        { id: 5, name: "Bao Li Xi", price: 25000 },
-        { id: 6, name: "Dua Hau Tet", price: 80000 },
+        { id: 5, name: "Bao Lì Xì", price: 25000 },
+        { id: 6, name: "Dưa Hấu Tết", price: 80000 },
       ];
 
-      // let productList = document.getElementById("product-list");
+      const productList = document.getElementById("product-list");
 
-      // products.forEach((element) => {
-      //   // let product = document.createElement(`div`);
+      function renderProduct(product) {
+        let li = document.createElement("li");
+        li.className = "product-item";
 
-      //   let productItem = `
-      //   <div class="product">
-      //     <p> Tên sản phẩm ${element.name}</p>
-      //     <p> Giá tiền ${element.price}</p>
-      //   </div> `;
+        li.innerHTML = `
+          <span class="name">${product.name}</span> -
+          <span class="price">${product.price}</span>
 
-      //   productList.innerHTML += productItem;
-      // });
+          <button class="edit-btn">Sửa giá</button>
+          <button class="delete-btn">Xóa</button>
+          `;
 
+        let deleteBtn = li.querySelector(".delete-btn");
 
-      let productList = document.getElementById("product-list");
+        deleteBtn.addEventListener("click", function () {
+          let check = confirm("Bạn có chắc muốn xóa?");
 
-      products.forEach(element => {
+          if (check) {
+            li.remove();
+          }
+        });
 
-        let productItem = document.createElement("div");
-        productItem.classList.add("product");
+        /* --------------------
+SỬA GIÁ
+-------------------- */
 
-        let valueName = document.createElement("p");
-        valueName.innerHTML = element.name ;
-        productItem.appendChild(valueName);
+        let editBtn = li.querySelector(".edit-btn");
+        let priceElement = li.querySelector(".price");
 
-        let valuePrice = document.createElement("p");
-        valuePrice.innerHTML = element.price ;
-        productItem.appendChild(valuePrice);
+        editBtn.addEventListener("click", function () {
+          let newPrice = prompt("Nhập giá mới:");
 
-        productList.appendChild(productItem);
+          if (newPrice) {
+            priceElement.innerText = newPrice;
+          }
+        });
+        productList.appendChild(li);
+      }
+      /* --------------------
+HIỂN THỊ DANH SÁCH BAN ĐẦU
+-------------------- */
 
+      products.forEach((product) => {
+        renderProduct(product);
       });
+      /* --------------------
+THÊM SẢN PHẨM
+-------------------- */
 
-     
+      let form = document.getElementById("product-form");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        let name = document.getElementById("product-name").value;
+        let price = document.getElementById("product-price").value;
+
+        let newProduct = {
+          name: name,
+          price: price,
+        };
+
+        renderProduct(newProduct);
+
+        document.getElementById("product-name").value = "";
+        document.getElementById("product-price").value = "";
+      });
+      /* --------------------
+TÌM KIẾM SẢN PHẨM
+-------------------- */
+
+      let searchInput = document.getElementById("search-input");
+
+      searchInput.addEventListener("input", function () {
+        let keyword = searchInput.value.toLowerCase();
+
+        let items = document.querySelectorAll(".product-item");
+
+        items.forEach((item) => {
+          let name = item.querySelector(".name").innerText.toLowerCase();
+
+          if (name.includes(keyword)) {
+            item.style.display = "block";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      });
     </script>
   </body>
 </html>
