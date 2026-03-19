@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>DANH SÁCH SẢN PHẨM</h1>
+    <ul id="product-list">
+      <!-- Render sản phẩm -->
+    </ul>
+    <h2>DANH SÁCH SẢN PHẨM BẠN ĐÃ THÊM VÀO GIỎ HÀNG</h2>
+    <ul id="cart-list">
+      <!-- Danh sách sản phẩm đc thêm vào trong giỏ hàng -->
+    </ul>
+    <p id="sumMoney"></p>
+    <button id="pay">Thanh toán</button>
+
+    <script>
+      let products = [
+        { id: 1, name: "Bánh Chưng", price: 150000, img: "" },
+        { id: 2, name: "Giò Lụa", price: 180000, img: "" },
+        { id: 3, name: "Cành Đào", price: 500000, img: "" },
+        { id: 4, name: "Mứt Tết", price: 120000, img: "" },
+        { id: 5, name: "Lì Xì (Tệp)", price: 20000, img: "" },
+        { id: 6, name: "Dưa Hấu", price: 60000, img: "" },
+      ];
+
+      // Chức năng 1: Khởi tạo dữ liệu (Load from Storage)
+      let cart = JSON.parse(localStorage.getItem("cart"));
+      if (cart === null) {
+        let cart = [];
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }
+
+      // In ra
+      let renderProduct = document.getElementById("product-list");
+
+      function renderProductList() {
+        renderProduct.innerHTML = "";
+        products.forEach((element) => {
+          let domProduct = document.createElement("li");
+          domProduct.innerHTML = `
+          <span>ID sản phẩm :${element.id} ||</span>
+          <span>Tên sản phẩm :${element.name} ||</span>
+          <span>Giá :${element.price} ||</span>
+          <span>Ảnh :${element.img} ||</span>
+          <button id="buy" onclick="buyProduct(${element.id})">Mua ngay</button> `;
+
+          renderProduct.appendChild(domProduct);
+        });
+      }
+      renderProductList();
+      // Tình tổng tiền
+      function totalPrice() {
+        let domSumMoney = document.getElementById("sumMoney");
+        let sum = cart.reduce((acc, element) => acc + element.price, 0);
+        domSumMoney.innerHTML = `Tổng tiền sản phẩm bạn đã thêm vào trong giỏ hàng là : ${sum}`;
+      }
+
+      function rederProductBuy() {
+        let renderProductBuy = document.getElementById("cart-list");
+        renderProductBuy.innerHTML = "";
+        cart.forEach((element , index) => {
+          let domProduct = document.createElement("li");
+          domProduct.innerHTML = `
+          <span>ID sản phẩm :${element.id} ||</span>
+          <span>Tên sản phẩm :${element.name} ||</span>
+          <span>Giá :${element.price} ||</span>
+          <span>Ảnh :${element.img} ||</span>
+          <button id="buy" onclick="buyProduct(${element.id})">Mua ngay</button> ||
+          <button id="delete" onclick="deleteProduct(${index})">Xóa</button>`;
+
+          renderProductBuy.appendChild(domProduct);
+        });
+      }
+
+      // Chức năng 2: Lưu trữ khi mua hàng (Save to Storage)
+      function buyProduct(id) {
+        // Thêm vào trong localStorage
+        let valueBuy = products.find((element) => element.id === id);
+        cart.push(valueBuy);
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        // Hiển thị ra danh sách thêm giỏ hàng
+        rederProductBuy();
+        totalPrice();
+      }
+
+      // Chức năng 3: Xóa sản phẩm trong giỏ hàng
+      function deleteProduct(index) {
+        cart.splice(index , 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        rederProductBuy();
+        totalPrice();
+      }
+
+      // Chức năng 4 : Thanh toán
+      let payProduct = document.getElementById("pay");
+      payProduct.addEventListener("click" , function () {
+        cart = [] ;
+        localStorage.setItem("cart" , JSON.stringify(cart));
+        rederProductBuy();
+        totalPrice();
+      })
+      
+    </script>
+  </body>
+</html>

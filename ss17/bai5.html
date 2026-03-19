@@ -106,6 +106,7 @@
         <button type="submit" id="add-btn" onclick="addTodo(event)">
           Thêm
         </button>
+        <button type="button" id="deleteAll">Xóa tất cả</button>
       </form>
 
       <ul id="todo-list"></ul>
@@ -165,12 +166,12 @@
         }
 
         let newTodo = {
-          id: initialTodos[initialTodos.length - 1].id + 1,
+          id: todos[todos.length - 1].id + 1,
           task: valueNewTodo,
           done: false,
         };
 
-        initialTodos.push(newTodo);
+        todos.push(newTodo);
         localStorage.setItem("myTodos", JSON.stringify(todos));
         console.log(initialTodos);
         renderTodos();
@@ -233,6 +234,18 @@
           }
         });
       }
+      
+      // Xóa tất cả 
+      document.getElementById("deleteAll").addEventListener("click", deleteAll);
+      function deleteAll(event) {
+        event.preventDefault();
+        todos = [];
+        localStorage.setItem("myTodos" , JSON.stringify(todos));
+        renderTodos();
+        console.log(todos);
+      }
+      
+      // 
     </script>
   </body>
 </html>
