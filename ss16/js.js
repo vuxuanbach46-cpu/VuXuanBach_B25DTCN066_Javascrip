@@ -1,179 +1,165 @@
+// Thêm nhân viên mới
+let staffs = [
+  {
+    id: 1,
+    fullname: "Vũ Xuân Bách",
+    email: "vuxuanbach46@gmail.com",
+    date: "2007-11-09",
+    position: "Giám đốc",
+  },
+];
 
-let form = document.querySelector("form");
-let fullNameInput = document.getElementById("fullName");
-let emailInput = document.getElementById("email");
-let dobInput = document.getElementById("dateOfBirth");
-let positionInput = document.getElementById("position");
-let tbody = document.querySelector("tbody");
-let badge = document.querySelector(".badge");
-let footer = document.querySelector(".footer span");
-let submitBtn = document.querySelector(".btn-primary");
+let themNhanVien = document.querySelector("form");
+themNhanVien.addEventListener("submit", function (event) {
+  event.preventDefault();
+  let domName = document.getElementById("fullName");
+  let domEmail = document.getElementById("email");
+  let domDate = document.getElementById("dateOfBirth");
+  let domPosition = document.getElementById("position");
 
-let employees = [];
-let editId = null;
-
-// Ngày
-function formatDate(dateStr) {
-  let d = new Date(dateStr);
-
-  let day = d.getDate();
-  let month = d.getMonth() + 1;
-  let year = d.getFullYear();
-  if (day < 10) {
-    day = "0" + day;
+  let valueName = domName.value;
+  if (valueName === "") {
+    alert("Tên không được để trống");
+    return;
   }
-
-  if (month < 10) {
-    month = "0" + month;
+  let valueEmail = domEmail.value;
+  if (valueEmail === "") {
+    alert("Email không được để trống");
+    return;
   }
-
-  return day + "/" + month + "/" + year;
-}
-
-// Email
-function checkEmail(email) {
-  if (email.indexOf("@") === -1) return false;
-  if (email.indexOf(".") === -1) return false;
-  return true;
-}
-
-function resetForm() {
-  form.reset();
-  editId = null;
-  submitBtn.innerText = "Thêm Nhân Viên";
-}
-
-function updateCount() {
-  badge.innerText = employees.length + " nhân viên";
-  footer.innerText = "Tổng số nhân viên: " + employees.length;
-}
-
-function renderTable() {
-  tbody.innerHTML = "";
-
-  for (let i = 0; i < employees.length; i++) {
-    let emp = employees[i];
-
-    let tr = document.createElement("tr");
-
-    tr.innerHTML =
-      "<td>" + emp.id + "</td>" +
-      "<td>" + emp.fullName + "</td>" +
-      "<td>" + emp.email + "</td>" +
-      "<td>" + formatDate(emp.dob) + "</td>" +
-      "<td>" + emp.position + "</td>" +
-      "<td>" +
-      "<button class='btn btn-sm btn-edit' data-id='" + emp.id + "'>Sửa</button> " +
-      "<button class='btn btn-sm btn-delete' data-id='" + emp.id + "'>Xóa</button>" +
-      "</td>";
-
-    tbody.appendChild(tr);
+  let valueDate = domDate.value;
+  if (valueDate === "") {
+    alert("Ngày sinh không được để trống");
+    return;
   }
-
-  updateCount();
-}
-
-function validate() {
-  let fullName = fullNameInput.value;
-  let email = emailInput.value;
-  let dob = dobInput.value;
-  let position = positionInput.value;
-
-  if (fullName === "" || email === "" || dob === "" || position === "") {
-    alert("Vui lòng nhập đầy đủ thông tin");
-    return false;
+  let valuePosition = domPosition.value;
+  if (valuePosition === "") {
+    alert("Chức vụ không được để trống");
+    return;
   }
-
-  if (!checkEmail(email)) {
-    alert("Email không hợp lệ");
-    return false;
-  }
-
-  return true;
-}
-
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  if (!validate()) return;
-
-  let data = {
-    fullName: fullNameInput.value,
-    email: emailInput.value,
-    dob: dobInput.value,
-    position: positionInput.value
-  };
 
   if (editId === null) {
-    // THÊM
-    let newEmp = {
-      id: new Date().getTime(),
-      fullName: data.fullName,
-      email: data.email,
-      dob: data.dob,
-      position: data.position
+    let newStaff = {
+      id: staffs.length !== 0 ? staffs[staffs.length - 1].id + 1 : 1,
+      fullname: valueName,
+      email: valueEmail,
+      date: valueDate,
+      position: valuePosition,
     };
 
-    employees.push(newEmp);
+    staffs.push(newStaff);
   } else {
-    // SỬA
-    for (let i = 0; i < employees.length; i++) {
-      if (employees[i].id === editId) {
-        employees[i].fullName = data.fullName;
-        employees[i].email = data.email;
-        employees[i].dob = data.dob;
-        employees[i].position = data.position;
-      }
-    }
+    let staff = staffs.find((element) => element.id === editId);
+    staff.fullname = valueName;
+    staff.email = valueEmail;
+    staff.date = valueDate;
+    staff.position = valuePosition;
+
+    editId = null;
+    document.querySelector(".btn-primary").textContent = "Thêm nhân viên";
   }
 
-  renderTable();
-  resetForm();
+  updateQuantity();
+  renderStaffs();
+  console.log(staffs);
+
+  domName.value = "";
+  domName.focus();
+  domEmail.value = "";
+  domDate.value = "";
+  domPosition.value = "";
 });
 
-tbody.addEventListener("click", function (e) {
-  let id = Number(e.target.getAttribute("data-id"));
+// Cập nhật số lượng ở phần footer
+function updateQuantity() {
+  let total = staffs.length;
+  let valuBadge = document.querySelector(".badge");
+  valuBadge.innerHTML = total + " nhân viên";
 
-  // XÓA
-  if (e.target.classList.contains("btn-delete")) {
-    let confirmDelete = confirm("Bạn có chắc muốn xóa không?");
-    if (!confirmDelete) return;
+  let valueFooter = document.querySelector(".footer span");
+  valueFooter.innerHTML = "Tổng số nhân viên: " + total;
+}
 
-    for (let i = 0; i < employees.length; i++) {
-      if (employees[i].id === id) {
-        employees.splice(i, 1);
-        break;
-      }
-    }
+// Hiển thị danh sách
+function renderStaffs() {
+  let domRender = document.getElementById("render");
+  domRender.innerHTML = "";
+  staffs.forEach((element, index) => {
+    let staff = document.createElement("tr");
 
-    if (editId === id) {
-      resetForm();
-    }
+    staff.innerHTML = `
+      <td>${element.id}</td>
+      <td>${element.fullname}</td>
+      <td>${element.email}</td>
+      <td>${formatDate(element.date)}</td>
+      <td>${element.position}</td>
+      <td class="actions">
+        <button class="btn btn-sm btn-edit" onclick = "updateStaff(${element.id})" >Sửa</button>
+        <button class="btn btn-sm btn-delete" onclick = "deleteStaff(${index})">Xóa</button>
+      </td>
+    `;
+    domRender.appendChild(staff);
+  });
+}
 
-    renderTable();
+// Ngày sinh được format sang định dạng dd/mm/yy
+function formatDate(date) {
+  let tach = date.split("-");
+  return tach[2] + "/" + tach[1] + "/" + tach[0];
+}
+
+// Sửa thông tin nhân viên
+let editId = null;
+function updateStaff(id) {
+  let thongTinStaff = staffs.find((element) => element.id === id);
+
+  let domName = document.getElementById("fullName");
+  let domEmail = document.getElementById("email");
+  let domDate = document.getElementById("dateOfBirth");
+  let domPosition = document.getElementById("position");
+
+  domName.value = thongTinStaff.fullname;
+  domEmail.value = thongTinStaff.email;
+  domDate.value = thongTinStaff.date;
+  domPosition.value = thongTinStaff.position;
+
+  document.querySelector(".btn-primary").textContent = "Cập nhật";
+  document.querySelector(".btn-secondary").textContent = "Hủy";
+  document.querySelector(".header h1").textContent = "Chỉnh Sửa Nhân Viên";
+
+  editId = id;
+}
+
+// Xóa nhan viên
+function deleteStaff(index) {
+  let xacNhan = confirm("Bạn có chắn chắn muốn xóa không");
+
+  if (xacNhan) {
+    staffs.splice(index, 1);
+
+    renderStaffs();
+    updateQuantity();
+    console.log(staffs);
+
+    document.querySelector(".btn-primary").textContent = "Thêm nhân viên";
+    document.querySelector(".btn-secondary").textContent = "Nhập lại";
+    document.querySelector(".header h1").textContent = "Quản Lý Nhân Viên";
+  } else {
+    alert("Đã hủy thao tác xóa");
   }
+}
+// Sửa nút hủy
+let btnCancel = document.querySelector(".btn-secondary");
 
-  // SỬA
-  if (e.target.classList.contains("btn-edit")) {
-    for (let i = 0; i < employees.length; i++) {
-      if (employees[i].id === id) {
-        let emp = employees[i];
+btnCancel.addEventListener("click", function (event) {
+  event.preventDefault();
 
-        fullNameInput.value = emp.fullName;
-        emailInput.value = emp.email;
-        dobInput.value = emp.dob;
-        positionInput.value = emp.position;
+  editId = null;
 
-        editId = id;
-        submitBtn.innerText = "Cập Nhật";
+  document.querySelector("form").reset();
 
-        window.scrollTo(0, 0);
-      }
-    }
-  }
+  document.querySelector(".btn-primary").textContent = "Thêm Nhân Viên";
+  document.querySelector(".header h1").textContent = "Quản Lý Nhân Viên";
+
+  document.getElementById("fullName").focus();
 });
-form.addEventListener("reset", function () {
-  resetForm();
-});
-
-renderTable();

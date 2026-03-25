@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rikkei Tech Hub</title>
+
+    <!-- FIX FOUC -->
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme");
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial;
+        background: #f5f5f5;
+        color: #222;
+      }
+
+      /* DARK MODE */
+      .dark body {
+        background: #121212;
+        color: white;
+      }
+
+      .container {
+        width: 600px;
+        margin: 40px auto;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .toggle {
+        cursor: pointer;
+      }
+
+      .card {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+      }
+
+      .dark .card {
+        background: #1e1e1e;
+      }
+
+      .title {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .image {
+        height: 200px;
+        background: gray;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .desc {
+        font-size: 14px;
+        color: #555;
+      }
+
+      .dark .desc {
+        color: #ccc;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <span>Rikkei Tech Hub</span>
+        <span id="btn" class="toggle">🌙</span>
+      </div>
+
+      <div class="card">
+        <div class="title">
+          AI đang thay đổi ngành công nghệ Việt Nam như thế nào?
+        </div>
+
+        <img
+          class="image"
+          src="https://www.google.com/imgres?q=%E1%BA%A3nh&imgurl=https%3A%2F%2Fphoto.znews.vn%2Fw660%2FUploaded%2Fmdf_eioxrd%2F2021_07_06%2F2.jpg&imgrefurl=https%3A%2F%2Fznews.vn%2F10-buc-anh-dep-nhat-giai-nhiep-anh-thien-van-cua-nam-post1237834.html&docid=Qgu6TE66VnfhiM&tbnid=deUcfIoz_OweRM&vet=12ahUKEwi7p5KA47CTAxWIhq8BHQu5K_IQnPAOegQIIhAB..i&w=660&h=440&hcb=2&ved=2ahUKEwi7p5KA47CTAxWIhq8BHQu5K_IQnPAOegQIIhAB"
+          alt=""
+        />
+
+        <div class="desc">
+          Trong những năm gần đây, AI phát triển rất mạnh tại Việt Nam. Nhiều
+          công ty đã áp dụng AI vào sản phẩm của mình.
+          <br /><br />
+          Tuy nhiên vẫn còn nhiều khó khăn về nhân lực và đào tạo.
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const btn = document.getElementById("btn");
+
+      function setTheme(theme) {
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+          btn.textContent = "☀️";
+        } else {
+          document.documentElement.classList.remove("dark");
+          btn.textContent = "🌙";
+        }
+        localStorage.setItem("theme", theme);
+      }
+
+      function getTheme() {
+        return localStorage.getItem("theme") || "light";
+      }
+
+      btn.onclick = function () {
+        const current = getTheme();
+        if (current === "light") {
+          setTheme("dark");
+        } else {
+          setTheme("light");
+        }
+      };
+
+      setTheme(getTheme());
+    </script>
+  </body>
+</html>

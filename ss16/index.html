@@ -18,6 +18,7 @@
     <section class="form-section">
       <form>
         <div class="form-grid">
+
           <div class="form-group">
             <label for="fullName">Họ và tên <span class="required">*</span></label>
             <input type="text" id="fullName" name="fullName" placeholder="Nhập họ và tên" />
@@ -43,6 +44,7 @@
               <option value="Giám đốc">Giám đốc</option>
             </select>
           </div>
+
         </div>
 
         <div class="form-actions">
@@ -55,7 +57,7 @@
     <section class="table-section">
       <div class="table-header">
         <h2>Danh Sách Nhân Viên</h2>
-        <span class="badge">3 nhân viên</span>
+        <span class="badge">0 nhân viên</span>
       </div>
       <div class="table-wrapper">
         <table>
@@ -66,9 +68,10 @@
               <th>Email</th>
               <th>Ngày sinh</th>
               <th>Chức vụ</th>
+              <th>Hành động</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="render">
             <!-- <tr>
               <td>1</td>
               <td>Nguyễn Văn A</td>
@@ -96,7 +99,7 @@
     </section>
 
     <footer class="footer">
-      <span>Tổng số nhân viên: 3</span>
+      <span>Tổng số nhân viên: 0</span>
     </footer>
   </div>
   <script src="js.js"></script>
