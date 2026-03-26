@@ -1,73 +1,92 @@
-// let todos=[
-//     {id: 1, name: "Học", deadline:"2026-03-16",status:"to do"},
-//     {id: 2, name: "Chơi", deadline:"2026-03-16",status:"pending"},
-//     {id: 3, name: "Làm việc nhà", deadline:"2026-03-16",status:"to do"},
+
+// let todos = [
+//     { id: 1, todo: "Học", deadLine: "2026-03-26", status: "to do" },
+//     { id: 2, todo: "Chơi", deadLine: "2026-03-26", status: "pending" },
+//     { id: 3, todo: "Làm việc nhà", deadLine: "2026-03-26", status: "to do" }
 // ];
-// localStorage.setItem("todos",JSON.stringify(todos));
+
+// localStorage.setItem("todos", JSON.stringify(todos));
 
 let todos = JSON.parse(localStorage.getItem("todos")) || [];
+let editTodoId = 0;
 
-function renderTodos() {
-  let todosList = document.getElementById("todos-list");
-  todosList.innerHTML = "";
-  todos.forEach((ele, index) => {
-    let li = document.createElement("li");
-    li.innerHTML = `
-    <li>${ele.name} - ${formatDate(ele.deadline)} - ${ele.status} 
-    <button class="btn-update" onclick = "updateTode(${ele.id})">Sửa</button>  
-    <button class="btn-delete" onclick = "deleteTodo(${index})">Xóa</button></li></br>   
-    `;
-    todosList.appendChild(li);
-  });
-  console.log(todos);
-  
-}
-function formatDate(deadline) {
-  let tach = deadline.split("-");
-  return tach[2] + "/" + tach[1] + "/" + tach[0] ;
+function renderTodos(todos) {
+    const todoListElement = document.getElementById("todoList");
+    todoListElement.innerHTML = "";
+    todos.forEach(todo => {
+        todoListElement.innerHTML += `<li class="input-container">
+                <span>
+                    ${todo.todo} - ${todo.deadLine} - ${todo.status}
+                </span>
+                <span>
+                    <button onclick="startEdit(${todo.id})">Sửa</button> <button onclick="deleteTodo(${todo.id})">Xóa</button>
+                </span>
+            </li>`
+    })
 }
 
-renderTodos();
-
-function addTodosList() {
-  // e.prevenDefault();                                                                             
-  let todosValue = document.getElementById("name-todo").value;
-  let deadlineValue = document.getElementById("deadline").value;
-  let statusValue = document.getElementById("status").value;
-
-  let newTodos = {
-    id: todos.length === 0 ? 1 : todos[todos.length - 1].id + 1,
-    name: todosValue,
-    deadline: deadlineValue,
-    status: statusValue,
-  };
-  todos.push(newTodos);
-  localStorage.setItem("todos", JSON.stringify(todos));
-
-  document.getElementById("name-todo").value = "";
-  document.getElementById("deadline").value = "";
-  document.getElementById("status").value = "";
-  renderTodos();
-}
-
-// Xóa
-function deleteTodo(index) {
-  let xacNhan = confirm("Bạn có chắc chắn muốn xóa");
-  if (xacNhan) {
-    todos.splice(index, 1)    ;
-    renderTodos();
+function addOrEditTodo() {
+    const todoInputElement = document.getElementById("todoInput");
+    const todoDateElement = document.getElementById("todoDate");
+    const todoStatusElement = document.getElementById("todoStatus");
+    const todoInput = todoInputElement.value;
+    const todoDate = todoDateElement.value;
+    const todoStatus = todoStatusElement.value;
+    if (editTodoId === 0) {
+        const newTodo = {
+            todo: todoInput,
+            deadLine: todoDate,
+            status: todoStatus,
+            id: todos.length !== 0 ? todos[todos.length - 1].id + 1 : 1
+        };
+        todos.push(newTodo);
+    } else {
+        const todoButton = document.getElementById("todoBtn");
+        let editTodoIndex = todos.findIndex(todo => todo.id === editTodoId);
+        todos[editTodoIndex].todo = todoInput;
+        todos[editTodoIndex].deadLine = todoDate;
+        todos[editTodoIndex].status = todoStatus;
+        editTodoId = 0;
+        todoButton.innerText = "Thêm công việc";
+    }
+    todoInputElement.value = "";
+    todoDateElement.value = "";
+    todoStatusElement.value = "";
     localStorage.setItem("todos", JSON.stringify(todos));
-  } else alert("Đã hủy thao tác xóa");
+    renderTodos(todos);
 }
-s
-//Sửa
-let editId = null ;
-function updateTode(id) {
-  let thongTinTodo = todos.find((element) => element.id === id);
-  editId = id ;
-  document.getElementById("name-todo").value = thongTinTodo.name ;
-  document.getElementById("deadline").value = thongTinTodo.deadline ;
-  document.getElementById("status").value = thongTinTodo.status ;
 
-  document.getElementById("nut").innerHTML = "Cập nhật";
+function deleteTodo(todoId) {
+    todos = todos.filter(todo => todo.id !== todoId);
+    localStorage.setItem("todos", JSON.stringify(todos));
+    renderTodos(todos);
 }
+
+function findTodoByName() {
+    const findInputElement = document.getElementById("findInput");
+    const findInput = findInputElement.value;
+    let findTodos = todos.filter(todo => todo.todo.includes(findInput));
+    renderTodos(findTodos);
+}
+
+function filterTodoByStatus() {
+    const filterTodoElement = document.getElementById("filterInput");
+    const filterStatus = filterTodoElement.value;
+    const filterTodos = todos.filter(todo => todo.status === filterStatus);
+    renderTodos(filterTodos);
+}
+
+function startEdit(todoId) {
+    const editTodo = todos.find(todo => todo.id === todoId);
+    const todoInputElement = document.getElementById("todoInput");
+    const todoDeadlineElement = document.getElementById("todoDate");
+    const todoStatusElement = document.getElementById("todoStatus");
+    const todoButton = document.getElementById("todoBtn");
+    todoInputElement.value = editTodo.todo;
+    todoDeadlineElement.value = editTodo.deadLine;
+    todoStatusElement.value = editTodo.status;
+    todoButton.innerText = "Lưu";
+    editTodoId = todoId;
+}
+
+renderTodos(todos);

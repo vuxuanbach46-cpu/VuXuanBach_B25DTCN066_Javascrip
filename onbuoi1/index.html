@@ -1,40 +1,223 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Review 01</title>
+  </head>
 
-<body>
-    <div>
-        <input type="text" id="name-todo" placeholder="Nhập tên công việc" >
-        <input type="date" name="" id="deadline">
-        <select name="" id="status">
-            <option value="">Loại công việc</option>
+  <body>
+    <style>
+      /* RESET */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+
+      /* BACKGROUND GRADIENT */
+      body {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* CONTAINER */
+      .container {
+        width: 900px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        padding: 25px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        color: white;
+      }
+
+      /* INPUT GROUP */
+      .input-container {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+      }
+
+      label {
+        font-size: 13px;
+        margin-bottom: 5px;
+        opacity: 0.8;
+      }
+
+      /* INPUT + SELECT */
+      input,
+      select {
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        font-size: 14px;
+        transition: 0.3s;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+      }
+
+      /* Placeholder */
+      input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* Focus effect */
+      input:focus,
+      select:focus {
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+      }
+
+      /* BUTTON */
+      button {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        background: linear-gradient(135deg, #00c6ff, #0072ff);
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      /* SEARCH + FILTER */
+      #findInput {
+        flex: 1;
+      }
+
+      .input-container input,
+      .input-container select {
+        margin-right: 10px;
+      }
+
+      /* TITLE */
+      h3 {
+        margin: 20px 0 10px;
+        font-weight: 500;
+      }
+
+      /* TODO LIST */
+      #todoList {
+        list-style: none;
+      }
+
+      /* ITEM */
+      #todoList li {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 12px 15px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        backdrop-filter: blur(10px);
+        transition: 0.3s;
+      }
+
+      #todoList li:hover {
+        transform: scale(1.02);
+      }
+
+      /* TEXT */
+      .todo-content {
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* STATUS BADGE */
+      .badge {
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-size: 12px;
+        margin-top: 5px;
+        width: fit-content;
+      }
+
+      /* STATUS COLORS */
+      .badge.todo {
+        background: #00c6ff;
+      }
+
+      .badge.pending {
+        background: #f39c12;
+      }
+
+      /* ACTION BUTTONS */
+      .actions button {
+        margin-left: 5px;
+        padding: 6px 10px;
+        font-size: 12px;
+      }
+
+      /* EDIT */
+      .actions .edit {
+        background: #f1c40f;
+      }
+
+      /* DELETE */
+      .actions .delete {
+        background: #e74c3c;
+      }                                 
+    </style>
+    <div class="container">
+      <!-- Phần thêm mới công việc -->
+      <div>
+        <div class="input-container">
+          <label for="">Tên công việc:</label>
+          <input type="text" id="todoInput" />
+        </div>
+
+        <div class="input-container">
+          <label for="">Hạn công việc:</label>
+          <input type="date" name="" id="todoDate" />
+        </div>
+
+        <div class="input-container">
+          <label for="">Trạng thái công việc</label>
+          <select name="" id="todoStatus">
+            <option value="">Chọn trạng thái</option>
             <option value="to do">to do</option>
             <option value="pending">pending</option>
+          </select>
+        </div>
+
+        <button onclick="addOrEditTodo()" id="todoBtn">Thêm công việc</button>
+      </div>
+      <br />
+
+      <!-- Phần tìm kiếm và lọc -->
+      <div class="input-container">
+        <input
+          type="text"
+          placeholder="Tìm kiếm công việc"
+          id="findInput"
+          oninput="findTodoByName()"
+        />
+        <!-- <button onclick="findTodoByName()">Tìm kiếm</button> -->
+        <select name="" id="filterInput" onchange="filterTodoByStatus()">
+          <option value="">Lọc theo trạng thái</option>
+          <option value="to do">to do</option>
+          <option value="pending">pending</option>
         </select>
-        <button id="nut" onclick=" addTodosList()">Thêm công việc</button>
+      </div>
 
-    </div><br>
+      <!-- Phần hiển thị công việc -->
+      <h3>Danh sách công việc</h3>
+      <ul id="todoList"></ul>
 
-    <input type="text" placeholder="Tìm kiếm công việc">
-      <select name="" id="todos">
-            <option value="">Loại công việc</option>
-            <option value="todo">to do</option>
-            <option value="pending">pending</option>
-        </select>
-    <button>Tìm kiếm</button>
-
-    <h3>Danh sách công việc</h3>
-    <ul id="todos-list">
-        <!-- <li>CV 1 - Ngày đến hạn - Loại công việc <button>Sửa</button>  <button>Xóa</button></li>
-        <li>CV 2 - Ngày đến hạn - Loại công việc <button>Sửa</button>  <button>Xóa</button></li>  
-        <li>CV 3 - Ngày đến hạn - Loại công việc <button>Sửa</button>  <button>Xóa</button></li> -->
-    </ul>
-
-
-   <script src="./js.js"></script>
-</body>
+      <script src="./js.js"></script>
+    </div>
+  </body>
 </html>
